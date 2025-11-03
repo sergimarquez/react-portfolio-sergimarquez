@@ -1,17 +1,21 @@
 import Link from "next/link";
-import { getCaseStudySlugs, readCaseStudySource } from "@/lib/mdx";
+import { getCaseStudySlugs } from "@/lib/mdx";
 
-export default function CaseStudiesIndex() {
+export default async function CaseStudiesIndex() {
   const slugs = getCaseStudySlugs();
-  const items = slugs.map((slug) => ({ slug, meta: readCaseStudySource(slug).meta }));
+  const items = slugs.map(async (slug) => {
+    const mod = await import(`@/content/case-studies/${slug}.mdx`);
+    const meta = (mod as any).frontmatter as { title?: string } | undefined;
+    return { slug, title: meta?.title ?? slug };
+  });
 
   return (
     <main>
       <h1>Case Studies</h1>
       <ul>
-        {items.map(({ slug, meta }) => (
+        {(await Promise.all(items)).map(({ slug, title }) => (
           <li key={slug}>
-            <Link href={`/case-studies/${slug}`}>{meta.title}</Link>
+            <Link href={`/case-studies/${slug}`}>{title}</Link>
           </li>
         ))}
       </ul>
