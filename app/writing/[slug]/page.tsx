@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { getWritingSlugs, readWritingSource } from "@/lib/writing";
+import { readWritingSource } from "@/lib/writing";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import MdxRenderer from "@/components/MdxRenderer";
+import MdxContent from "@/components/MdxContent";
+
+// Force dynamic rendering to avoid SSG React context issues with next-mdx-remote
+// Trade-off: Pages are SSR instead of SSG, but build succeeds
+export const dynamic = "force-dynamic";
 
 type Params = { slug: string };
-
-export async function generateStaticParams() {
-  return getWritingSlugs().map((slug) => ({ slug }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
@@ -42,7 +42,7 @@ export default async function WritingPage({ params }: { params: Promise<Params> 
         {meta.summary ? <p>{meta.summary}</p> : null}
       </header>
       <article>
-        <MdxRenderer source={mdxSource} />
+        <MdxContent source={mdxSource} />
       </article>
     </main>
   );
