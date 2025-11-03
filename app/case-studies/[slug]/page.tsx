@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { getCaseStudySlugs } from "@/lib/mdx";
+import { getCaseStudySlugs, readCaseStudySource } from "@/lib/mdx";
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import MdxRenderer from "@/components/MdxRenderer";
 
 type Params = { slug: string };
 
@@ -9,26 +14,28 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
-  const mod = await import(`@/content/case-studies/${slug}.mdx`);
-  const meta = (mod as any).frontmatter as { title?: string; summary?: string } | undefined;
-  return { title: meta?.title, description: meta?.summary };
+  const { meta } = readCaseStudySource(slug);
+  return { title: meta.title, description: meta.summary };
 }
 
 export default async function CaseStudyPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const mod = await import(`@/content/case-studies/${slug}.mdx`);
-  const MDXContent = (mod as any).default as React.ComponentType;
-  const meta = (mod as any).frontmatter as { title?: string; summary?: string } | undefined;
+  const { source, meta } = readCaseStudySource(slug);
+  const mdxSource = await serialize(source, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
+    },
+  });
   return (
     <main>
       <header>
-        <h1>{meta?.title}</h1>
-        {meta?.summary ? <p>{meta.summary}</p> : null}
+        <h1>{meta.title}</h1>
+        {meta.summary ? <p>{meta.summary}</p> : null}
       </header>
       <article>
-        <MDXContent />
+        <MdxRenderer source={mdxSource} />
       </article>
     </main>
   );
 }
-

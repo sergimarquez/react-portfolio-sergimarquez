@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import matter from "gray-matter";
 
 export type CaseStudyMeta = {
   title: string;
@@ -18,6 +19,9 @@ export function getCaseStudySlugs(): string[] {
     .map((file) => file.replace(/\.mdx$/, ""));
 }
 
-// With @next/mdx + remark-mdx-frontmatter, MDX modules export `frontmatter` directly, so
-// we no longer need to parse frontmatter here.
-
+export function readCaseStudySource(slug: string): { source: string; meta: CaseStudyMeta } {
+  const fullPath = path.join(CASE_STUDIES_DIR, `${slug}.mdx`);
+  const raw = fs.readFileSync(fullPath, "utf8");
+  const { content, data } = matter(raw);
+  return { source: content, meta: data as CaseStudyMeta };
+}
