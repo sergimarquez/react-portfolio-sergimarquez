@@ -42,9 +42,9 @@ export default function Button({
       border: "none",
     },
     secondary: {
-      background: "transparent",
-      color: "var(--color-interactive-default)",
-      border: `${borderTokens.width.base} solid var(--color-border-default)`,
+      background: "var(--color-background-secondary)",
+      color: "var(--color-foreground-primary)",
+      border: `${borderTokens.width.thin} solid var(--color-border-default)`,
     },
     ghost: {
       background: "transparent",

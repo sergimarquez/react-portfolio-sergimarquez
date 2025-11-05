@@ -11,6 +11,7 @@ type TextProps = {
   weight?: TextWeight;
   color?: "primary" | "secondary" | "muted";
   className?: string;
+  style?: React.CSSProperties;
 };
 
 export default function Text({
@@ -20,6 +21,7 @@ export default function Text({
   weight = "normal",
   color = "primary",
   className = "",
+  style,
 }: TextProps) {
   const fontSize = typographyTokens.fontSize[size];
   const fontWeight = typographyTokens.fontWeight[weight];
@@ -38,6 +40,7 @@ export default function Text({
         fontWeight,
         color: colorVar,
         lineHeight: typographyTokens.lineHeight.normal,
+        ...style,
       }}
     >
       {children}

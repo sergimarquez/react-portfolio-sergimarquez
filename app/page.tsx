@@ -1,179 +1,91 @@
 "use client";
 
-import {
-  Text,
-  Button,
-  Card,
-  Stack,
-  Grid,
-  Link,
-  Badge,
-  Input,
-  Modal,
-} from "@/components/primitives";
-import { useState } from "react";
+import { Text, Button, Card, Stack, Grid, Link, Badge } from "@/components/primitives";
 
 export default function Home() {
-  const [modalOpen, setModalOpen] = useState(false);
-
   return (
-    <main
-      style={{
-        padding: "1rem",
-        maxWidth: "1200px",
-        margin: "0 auto",
-      }}
-    >
+    <main style={{ maxWidth: "1200px", width: "90%", margin: "0 auto", padding: "4rem 1rem" }}>
       {/* Hero Section */}
-      <section id="hero" style={{ marginBottom: "4rem" }}>
-        <Stack gap={6}>
-          <Text as="h1" size="5xl" weight="bold">
-            Portfolio Primitives Showcase
-          </Text>
-          <Text size="lg" color="secondary">
-            A reusable frontend architecture baseline with design tokens and primitives
-          </Text>
-          <Stack
-            direction="row"
-            gap={4}
-            style={{ flexWrap: "wrap" }}
-          >
-            <Button variant="primary" size="lg">
-              Primary Button
-            </Button>
-            <Button variant="secondary" size="lg">
-              Secondary Button
-            </Button>
-            <Button variant="ghost" size="lg">
-              Ghost Button
-            </Button>
+      <section id="hero" style={{ marginBottom: "10rem" }}>
+        <Stack gap={8} align="start">
+          <Stack gap={6} style={{ maxWidth: "700px" }}>
+            <Text
+              as="h1"
+              size="6xl"
+              weight="bold"
+              className="fade-in"
+              style={{
+                letterSpacing: "-0.04em",
+                lineHeight: "1.1",
+              }}
+            >
+              Frontend Architect & Engineer
+            </Text>
+            <Text
+              size="xl"
+              color="secondary"
+              className="fade-in-delay-1"
+              style={{ lineHeight: "1.6" }}
+            >
+              Building scalable, maintainable frontend architectures. Focused on performance,
+              accessibility, and developer experience.
+            </Text>
+            <Stack direction="row" gap={4} className="fade-in-delay-2" style={{ flexWrap: "wrap" }}>
+              <Link href="#projects">
+                <Button variant="primary" size="lg">
+                  View Projects
+                </Button>
+              </Link>
+              <Link href="/blog">
+                <Button variant="secondary" size="lg">
+                  Read Blog
+                </Button>
+              </Link>
+            </Stack>
           </Stack>
-        </Stack>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" style={{ marginBottom: "4rem" }}>
-        <Stack gap={6}>
-          <Text as="h2" size="3xl" weight="bold">
-            Projects
-          </Text>
-          <Grid cols={3} gap={6}>
-            <Card>
-              <Stack gap={4}>
-                <Text as="h3" size="xl" weight="semibold">
-                  Project One
-                </Text>
-                <Text color="secondary">
-                  Description of project one with some details about what it does and how it was
-                  built.
-                </Text>
-                <Stack direction="row" gap={2}>
-                  <Badge variant="success">React</Badge>
-                  <Badge variant="info">TypeScript</Badge>
-                </Stack>
-                <Link href="/case-studies/hello-world">View case study →</Link>
-              </Stack>
-            </Card>
-            <Card>
-              <Stack gap={4}>
-                <Text as="h3" size="xl" weight="semibold">
-                  Project Two
-                </Text>
-                <Text color="secondary">
-                  Another project description showcasing the grid layout and card components.
-                </Text>
-                <Stack direction="row" gap={2}>
-                  <Badge variant="warning">Next.js</Badge>
-                  <Badge>Design System</Badge>
-                </Stack>
-                <Link href="/case-studies/hello-world">View case study →</Link>
-              </Stack>
-            </Card>
-            <Card>
-              <Stack gap={4}>
-                <Text as="h3" size="xl" weight="semibold">
-                  Project Three
-                </Text>
-                <Text color="secondary">
-                  Third project card to demonstrate the responsive grid system.
-                </Text>
-                <Stack direction="row" gap={2}>
-                  <Badge variant="error">Architecture</Badge>
-                </Stack>
-                <Link href="/case-studies/hello-world">View case study →</Link>
-              </Stack>
-            </Card>
-          </Grid>
         </Stack>
       </section>
 
       {/* About Section */}
-      <section id="about" style={{ marginBottom: "4rem" }}>
-        <Stack gap={6}>
-          <Text as="h2" size="3xl" weight="bold">
-            About
-          </Text>
-          <Card>
-            <Stack gap={4}>
-              <Text size="lg">
-                This is a showcase of the design system primitives built with design tokens. The
-                architecture prioritizes:
-              </Text>
-              <Stack gap={2}>
-                <Text>• Modularity and separation of concerns</Text>
-                <Text>• Type-safe design tokens</Text>
-                <Text>• Accessibility-first components</Text>
-                <Text>• Framework-agnostic primitives</Text>
-              </Stack>
-            </Stack>
-          </Card>
-        </Stack>
-      </section>
-
-      {/* Components Showcase */}
-      <section id="components" style={{ marginBottom: "4rem" }}>
-        <Stack gap={6}>
-          <Text as="h2" size="3xl" weight="bold">
-            Component Showcase
-          </Text>
-            <Grid cols={2} gap={6} style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
-            <Card>
-              <Stack gap={4}>
-                <Text as="h3" size="lg" weight="semibold">
-                  Typography Scale
+      <section id="about" style={{ marginBottom: "10rem" }}>
+        <Stack gap={8}>
+          <h2 className="section-title fade-in">About</h2>
+          <Grid cols={2} gap={8}>
+            <Card className="card-hover fade-in-delay-1">
+              <Stack gap={5}>
+                <Text as="h3" size="2xl" weight="semibold">
+                  Principles & Approach
                 </Text>
-                <Stack gap={2}>
-                  <Text size="xs">Extra Small Text</Text>
-                  <Text size="sm">Small Text</Text>
-                  <Text size="base">Base Text (default)</Text>
-                  <Text size="lg">Large Text</Text>
-                  <Text size="xl">Extra Large Text</Text>
-                  <Text size="2xl">2XL Text</Text>
-                </Stack>
-                <Stack gap={2}>
-                  <Text weight="normal">Normal Weight</Text>
-                  <Text weight="medium">Medium Weight</Text>
-                  <Text weight="semibold">Semibold Weight</Text>
-                  <Text weight="bold">Bold Weight</Text>
-                </Stack>
-                <Stack gap={2}>
-                  <Text color="primary">Primary Color</Text>
-                  <Text color="secondary">Secondary Color</Text>
-                  <Text color="muted">Muted Color</Text>
+                <Stack gap={4}>
+                  <Text style={{ lineHeight: "1.7" }}>
+                    I design frontend architectures that prioritize <strong>maintainability</strong>{" "}
+                    and <strong>scalability</strong>. Every decision considers the team and
+                    long-term evolution.
+                  </Text>
+                  <Text style={{ lineHeight: "1.7" }}>
+                    My work emphasizes <strong>type safety</strong>,{" "}
+                    <strong>separation of concerns</strong>, and{" "}
+                    <strong>performance by default</strong>. I believe great code is
+                    self-documenting and testable.
+                  </Text>
                 </Stack>
               </Stack>
             </Card>
-            <Card>
-              <Stack gap={4}>
-                <Text as="h3" size="lg" weight="semibold">
-                  Form Components
+            <Card className="card-hover fade-in-delay-2">
+              <Stack gap={5}>
+                <Text as="h3" size="2xl" weight="semibold">
+                  Leadership Style
                 </Text>
-                <Input label="Email Address" type="email" placeholder="you@example.com" />
-                <Input label="Password" type="password" placeholder="••••••••" />
-                <Input label="Error State" error="This field is required" />
-                <Stack direction="row" gap={2} justify="start">
-                  <Button variant="primary">Submit</Button>
-                  <Button variant="secondary">Cancel</Button>
+                <Stack gap={4}>
+                  <Text style={{ lineHeight: "1.7" }}>
+                    I lead through <strong>architecture decisions</strong> and{" "}
+                    <strong>mentoring</strong>. I focus on enabling teams to build better systems by
+                    establishing patterns, not micromanaging.
+                  </Text>
+                  <Text style={{ lineHeight: "1.7" }}>
+                    I document decisions in ADRs, maintain design systems that enable autonomy, and
+                    create frameworks that scale with the team.
+                  </Text>
                 </Stack>
               </Stack>
             </Card>
@@ -181,42 +93,224 @@ export default function Home() {
         </Stack>
       </section>
 
-      {/* Interactive Demo */}
-      <section>
-        <Card>
-          <Stack gap={4}>
-            <Text as="h3" size="lg" weight="semibold">
-              Interactive Demo
-            </Text>
-            <Text>Click the button below to see the modal component:</Text>
-            <Button variant="primary" onClick={() => setModalOpen(true)}>
-              Open Modal
-            </Button>
-            <Stack direction="row" gap={2}>
-              <Badge variant="success">Success</Badge>
-              <Badge variant="warning">Warning</Badge>
-              <Badge variant="error">Error</Badge>
-              <Badge variant="info">Info</Badge>
-              <Badge>Default</Badge>
-            </Stack>
-          </Stack>
-        </Card>
+      {/* Projects Section */}
+      <section id="projects" style={{ marginBottom: "10rem" }}>
+        <Stack gap={8}>
+          <h2 className="section-title fade-in">Featured Projects</h2>
+          <Grid cols={2} gap={8}>
+            <Card className="card-hover fade-in-delay-1">
+              <Stack gap={5}>
+                <Stack gap={3}>
+                  <Link href="https://fintreo.com" external>
+                    <Text as="h3" size="2xl" weight="semibold">
+                      Fintreo
+                    </Text>
+                  </Link>
+                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                    Modern personal finance application built with Next.js 15 and React 18.
+                    Implemented real-time sync, privacy-first architecture, and optimized bundle
+                    size for sub-100KB initial load.
+                  </Text>
+                </Stack>
+                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                  <Badge>Next.js 15</Badge>
+                  <Badge>React 18</Badge>
+                  <Badge>TypeScript</Badge>
+                  <Badge>Performance</Badge>
+                </Stack>
+                <Stack direction="row" gap={4}>
+                  <Link href="https://fintreo.com" external>
+                    Live demo →
+                  </Link>
+                </Stack>
+              </Stack>
+            </Card>
+
+            <Card className="card-hover fade-in-delay-2">
+              <Stack gap={5}>
+                <Stack gap={3}>
+                  <Link href="https://3good.app/" external>
+                    <Text as="h3" size="2xl" weight="semibold">
+                      3Good
+                    </Text>
+                  </Link>
+                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                    Privacy-first gratitude app with minimal bundle size. Built with Vite for
+                    optimal dev experience, implementing modern React patterns for state management
+                    and performance.
+                  </Text>
+                </Stack>
+                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                  <Badge>React</Badge>
+                  <Badge>TypeScript</Badge>
+                  <Badge>Vite</Badge>
+                  <Badge>Privacy</Badge>
+                </Stack>
+                <Stack direction="row" gap={4}>
+                  <Link href="https://3good.app/" external>
+                    Live demo →
+                  </Link>
+                </Stack>
+              </Stack>
+            </Card>
+
+            <Card className="card-hover fade-in-delay-1">
+              <Stack gap={5}>
+                <Stack gap={3}>
+                  <Text as="h3" size="2xl" weight="semibold">
+                    Design System Architecture
+                  </Text>
+                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                    Reusable frontend architecture baseline with design tokens, type-safe
+                    primitives, and testing infrastructure. Built to be extracted into standalone
+                    packages for cross-project reuse.
+                  </Text>
+                </Stack>
+                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                  <Badge>Design System</Badge>
+                  <Badge>TypeScript</Badge>
+                  <Badge>Architecture</Badge>
+                  <Badge>Reusability</Badge>
+                </Stack>
+              </Stack>
+            </Card>
+
+            <Card className="card-hover fade-in-delay-2">
+              <Stack gap={5}>
+                <Stack gap={3}>
+                  <Link
+                    href="https://chromewebstore.google.com/detail/ogicdnegacclceajhgaoehlnidgndllp"
+                    external
+                  >
+                    <Text as="h3" size="2xl" weight="semibold">
+                      SiteBlockr
+                    </Text>
+                  </Link>
+                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                    Chrome extension with privacy-focused architecture. Implemented Chrome APIs
+                    efficiently, optimized for minimal performance impact, and maintained strict
+                    type safety throughout.
+                  </Text>
+                </Stack>
+                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                  <Badge>Chrome Extension</Badge>
+                  <Badge>TypeScript</Badge>
+                  <Badge>Privacy</Badge>
+                  <Badge>Performance</Badge>
+                </Stack>
+                <Stack direction="row" gap={4}>
+                  <Link
+                    href="https://chromewebstore.google.com/detail/ogicdnegacclceajhgaoehlnidgndllp"
+                    external
+                  >
+                    Chrome Store →
+                  </Link>
+                </Stack>
+              </Stack>
+            </Card>
+          </Grid>
+        </Stack>
       </section>
 
-      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="Modal Example">
-        <Stack gap={4}>
-          <Text>This is an accessible modal component with:</Text>
-          <Stack gap={2}>
-            <Text>• Keyboard trap (Tab cycles through focusable elements)</Text>
-            <Text>• Escape key to close</Text>
-            <Text>• Click outside to close</Text>
-            <Text>• Proper ARIA attributes</Text>
-          </Stack>
-          <Button variant="primary" onClick={() => setModalOpen(false)}>
-            Close Modal
-          </Button>
+      {/* Skills Section */}
+      <section id="skills" style={{ marginBottom: "10rem" }}>
+        <Stack gap={8}>
+          <h2 className="section-title fade-in">Technical Expertise</h2>
+          <Grid cols={3} gap={6}>
+            <Card className="card-hover fade-in-delay-1">
+              <Stack gap={4}>
+                <Text as="h3" size="xl" weight="semibold">
+                  Architecture & Patterns
+                </Text>
+                <Stack gap={2}>
+                  {[
+                    "Design Systems",
+                    "Component Architecture",
+                    "State Management",
+                    "Code Splitting",
+                    "Micro-frontends",
+                  ].map((skill) => (
+                    <Badge key={skill} variant="info">
+                      {skill}
+                    </Badge>
+                  ))}
+                </Stack>
+              </Stack>
+            </Card>
+
+            <Card className="card-hover fade-in-delay-2">
+              <Stack gap={4}>
+                <Text as="h3" size="xl" weight="semibold">
+                  Frontend Technologies
+                </Text>
+                <Stack gap={2}>
+                  {[
+                    "React",
+                    "Next.js",
+                    "TypeScript",
+                    "JavaScript ES6+",
+                    "Web Performance",
+                    "Accessibility",
+                  ].map((skill) => (
+                    <Badge key={skill} variant="default">
+                      {skill}
+                    </Badge>
+                  ))}
+                </Stack>
+              </Stack>
+            </Card>
+
+            <Card className="card-hover fade-in-delay-3">
+              <Stack gap={4}>
+                <Text as="h3" size="xl" weight="semibold">
+                  Engineering Practices
+                </Text>
+                <Stack gap={2}>
+                  {[
+                    "Testing (Jest, RTL, E2E)",
+                    "CI/CD",
+                    "Code Quality",
+                    "Documentation",
+                    "Performance Auditing",
+                  ].map((skill) => (
+                    <Badge key={skill} variant="success">
+                      {skill}
+                    </Badge>
+                  ))}
+                </Stack>
+              </Stack>
+            </Card>
+          </Grid>
         </Stack>
-      </Modal>
-      </main>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" style={{ marginBottom: "8rem" }}>
+        <Stack gap={6} align="center">
+          <h2 className="section-title fade-in">Get in Touch</h2>
+          <Text size="lg" color="secondary" style={{ textAlign: "center", maxWidth: "600px" }}>
+            Interested in discussing frontend architecture, design systems, or engineering
+            leadership? Let's connect.
+          </Text>
+          <Stack direction="row" gap={4} style={{ flexWrap: "wrap", justifyContent: "center" }}>
+            <Link href="mailto:hello@sergimarquez.com">
+              <Button variant="primary" size="lg">
+                Email me
+              </Button>
+            </Link>
+            <Link href="https://github.com/sergimarquez" external>
+              <Button variant="secondary" size="lg">
+                GitHub
+              </Button>
+            </Link>
+            <Link href="https://www.linkedin.com/in/sergi-marquez/" external>
+              <Button variant="secondary" size="lg">
+                LinkedIn
+              </Button>
+            </Link>
+          </Stack>
+        </Stack>
+      </section>
+    </main>
   );
 }

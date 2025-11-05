@@ -23,8 +23,9 @@ export default function Card({
         padding: spacingTokens[padding],
         backgroundColor: "var(--color-background-primary)",
         border: `${borderTokens.width.thin} solid var(--color-border-default)`,
-        borderRadius: borderTokens.radius.lg,
+        borderRadius: borderTokens.radius.xl,
         boxShadow: shadowTokens[shadow],
+        transition: "all 0.2s ease",
       }}
     >
       {children}

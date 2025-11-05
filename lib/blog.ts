@@ -9,18 +9,18 @@ export type WritingMeta = {
   tags?: string[];
 };
 
-const WRITING_DIR = path.join(process.cwd(), "content", "writing");
+const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
-export function getWritingSlugs(): string[] {
-  if (!fs.existsSync(WRITING_DIR)) return [];
+export function getBlogSlugs(): string[] {
+  if (!fs.existsSync(BLOG_DIR)) return [];
   return fs
-    .readdirSync(WRITING_DIR)
+    .readdirSync(BLOG_DIR)
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => file.replace(/\.mdx$/, ""));
 }
 
-export function readWritingSource(slug: string): { source: string; meta: WritingMeta } {
-  const fullPath = path.join(WRITING_DIR, `${slug}.mdx`);
+export function readBlogSource(slug: string): { source: string; meta: WritingMeta } {
+  const fullPath = path.join(BLOG_DIR, `${slug}.mdx`);
   const raw = fs.readFileSync(fullPath, "utf8");
   const { content, data } = matter(raw);
   return { source: content, meta: data as WritingMeta };
