@@ -1,8 +1,27 @@
-"use client";
-
 import { Text, Button, Card, Stack, Grid, Link, Badge } from "@/components/primitives";
+import { getBlogSlugs, readBlogSource } from "@/lib/blog";
+
+function getLatestPosts(limit = 2) {
+  const slugs = getBlogSlugs();
+  const posts = slugs.map((slug) => {
+    const { meta } = readBlogSource(slug);
+    const dateStr = typeof meta.date === "string" ? meta.date : String(meta.date ?? "");
+    return {
+      slug,
+      title: meta.title ?? slug,
+      date: dateStr,
+      summary: meta.summary ?? "",
+      tags: meta.tags ?? [],
+    };
+  });
+
+  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return posts.slice(0, limit);
+}
 
 export default function Home() {
+  const latestPosts = getLatestPosts();
+
   return (
     <main style={{ maxWidth: "1200px", width: "90%", margin: "0 auto", padding: "4rem 1rem" }}>
       {/* Hero Section */}
@@ -19,7 +38,7 @@ export default function Home() {
                 lineHeight: "1.1",
               }}
             >
-              Frontend Architect & Engineer
+              Sergi Marquez
             </Text>
             <Text
               size="xl"
@@ -27,8 +46,16 @@ export default function Home() {
               className="fade-in-delay-1"
               style={{ lineHeight: "1.6" }}
             >
-              Building scalable, maintainable frontend architectures. Focused on performance,
-              accessibility, and developer experience.
+              I’m Sergi, a Front-End Engineer who enjoys turning complex systems into clear,
+              scalable interfaces.
+            </Text>
+            <Text
+              size="lg"
+              color="secondary"
+              className="fade-in-delay-2"
+              style={{ lineHeight: "1.6" }}
+            >
+              I focus on performance, maintainability, and a great developer experience.
             </Text>
             <Stack direction="row" gap={4} className="fade-in-delay-2" style={{ flexWrap: "wrap" }}>
               <Link href="#projects">
@@ -43,53 +70,6 @@ export default function Home() {
               </Link>
             </Stack>
           </Stack>
-        </Stack>
-      </section>
-
-      {/* About Section */}
-      <section id="about" style={{ marginBottom: "10rem" }}>
-        <Stack gap={8}>
-          <h2 className="section-title fade-in">About</h2>
-          <Grid cols={2} gap={8}>
-            <Card className="card-hover fade-in-delay-1">
-              <Stack gap={5}>
-                <Text as="h3" size="2xl" weight="semibold">
-                  Principles & Approach
-                </Text>
-                <Stack gap={4}>
-                  <Text style={{ lineHeight: "1.7" }}>
-                    I design frontend architectures that prioritize <strong>maintainability</strong>{" "}
-                    and <strong>scalability</strong>. Every decision considers the team and
-                    long-term evolution.
-                  </Text>
-                  <Text style={{ lineHeight: "1.7" }}>
-                    My work emphasizes <strong>type safety</strong>,{" "}
-                    <strong>separation of concerns</strong>, and{" "}
-                    <strong>performance by default</strong>. I believe great code is
-                    self-documenting and testable.
-                  </Text>
-                </Stack>
-              </Stack>
-            </Card>
-            <Card className="card-hover fade-in-delay-2">
-              <Stack gap={5}>
-                <Text as="h3" size="2xl" weight="semibold">
-                  Leadership Style
-                </Text>
-                <Stack gap={4}>
-                  <Text style={{ lineHeight: "1.7" }}>
-                    I lead through <strong>architecture decisions</strong> and{" "}
-                    <strong>mentoring</strong>. I focus on enabling teams to build better systems by
-                    establishing patterns, not micromanaging.
-                  </Text>
-                  <Text style={{ lineHeight: "1.7" }}>
-                    I document decisions in ADRs, maintain design systems that enable autonomy, and
-                    create frameworks that scale with the team.
-                  </Text>
-                </Stack>
-              </Stack>
-            </Card>
-          </Grid>
         </Stack>
       </section>
 
@@ -212,75 +192,160 @@ export default function Home() {
         </Stack>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" style={{ marginBottom: "10rem" }}>
-        <Stack gap={8}>
-          <h2 className="section-title fade-in">Technical Expertise</h2>
-          <Grid cols={3} gap={6}>
-            <Card className="card-hover fade-in-delay-1">
-              <Stack gap={4}>
+      {/* Skills Section – Option A only */}
+      <section id="skills-option-a" style={{ marginBottom: "6rem" }}>
+        <Stack gap={6}>
+          <h2 className="section-title fade-in">Technical Expertise — Option A (Tokens + Lists)</h2>
+          <div
+            className="fade-in-delay-1"
+            style={{
+              background: "var(--color-background-secondary)",
+              border: "1px solid var(--color-border-default)",
+              borderRadius: "1rem",
+              padding: "3rem",
+            }}
+          >
+            <Grid cols={3} gap={6}>
+              <Stack gap={3}>
                 <Text as="h3" size="xl" weight="semibold">
                   Architecture & Patterns
                 </Text>
-                <Stack gap={2}>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.8 }}>
                   {[
                     "Design Systems",
                     "Component Architecture",
                     "State Management",
                     "Code Splitting",
                     "Micro-frontends",
-                  ].map((skill) => (
-                    <Badge key={skill} variant="info">
-                      {skill}
-                    </Badge>
+                  ].map((item) => (
+                    <li key={item} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span aria-hidden="true">✓</span>
+                      <Text as="span">{item}</Text>
+                    </li>
                   ))}
-                </Stack>
+                </ul>
               </Stack>
-            </Card>
 
-            <Card className="card-hover fade-in-delay-2">
-              <Stack gap={4}>
+              <Stack gap={3}>
                 <Text as="h3" size="xl" weight="semibold">
                   Frontend Technologies
                 </Text>
-                <Stack gap={2}>
-                  {[
-                    "React",
-                    "Next.js",
-                    "TypeScript",
-                    "JavaScript ES6+",
-                    "Web Performance",
-                    "Accessibility",
-                  ].map((skill) => (
-                    <Badge key={skill} variant="default">
-                      {skill}
-                    </Badge>
-                  ))}
-                </Stack>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.8 }}>
+                  {["React", "Next.js", "TypeScript", "Web Performance", "Accessibility"].map(
+                    (item) => (
+                      <li
+                        key={item}
+                        style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+                      >
+                        <span aria-hidden="true">✓</span>
+                        <Text as="span">{item}</Text>
+                      </li>
+                    ),
+                  )}
+                </ul>
               </Stack>
-            </Card>
 
-            <Card className="card-hover fade-in-delay-3">
-              <Stack gap={4}>
+              <Stack gap={3}>
                 <Text as="h3" size="xl" weight="semibold">
                   Engineering Practices
                 </Text>
-                <Stack gap={2}>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.8 }}>
                   {[
                     "Testing (Jest, RTL, E2E)",
                     "CI/CD",
                     "Code Quality",
                     "Documentation",
                     "Performance Auditing",
-                  ].map((skill) => (
-                    <Badge key={skill} variant="success">
-                      {skill}
-                    </Badge>
+                  ].map((item) => (
+                    <li key={item} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span aria-hidden="true">✓</span>
+                      <Text as="span">{item}</Text>
+                    </li>
                   ))}
-                </Stack>
+                </ul>
               </Stack>
+            </Grid>
+          </div>
+        </Stack>
+      </section>
+
+      {/* Blog Section */}
+      <section id="blog" style={{ marginBottom: "10rem" }}>
+        <Stack gap={6}>
+          <h2 className="section-title fade-in">Latest Writing</h2>
+          {latestPosts.length > 0 ? (
+            <Grid cols={2} gap={6}>
+              {latestPosts.map((post, index) => (
+                <Card
+                  key={post.slug}
+                  className={`card-hover ${index % 2 === 0 ? "fade-in-delay-1" : "fade-in-delay-2"}`}
+                >
+                  <Stack gap={4}>
+                    <Stack gap={2}>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        style={{
+                          textDecoration: "none",
+                          color: "var(--color-foreground-primary)",
+                        }}
+                      >
+                        <Text as="h3" size="2xl" weight="semibold" style={{ lineHeight: "1.2" }}>
+                          {post.title}
+                        </Text>
+                      </Link>
+                      {post.date && (
+                        <Text size="sm" color="muted">
+                          {new Date(post.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </Text>
+                      )}
+                    </Stack>
+                    {post.summary ? (
+                      <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                        {post.summary}
+                      </Text>
+                    ) : null}
+                    {post.tags.length > 0 && (
+                      <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                        {post.tags.map((tag) => (
+                          <Badge key={tag} variant="default">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </Stack>
+                    )}
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      style={{
+                        textDecoration: "none",
+                        color: "var(--color-interactive-default)",
+                        fontWeight: 500,
+                      }}
+                    >
+                      Read more →
+                    </Link>
+                  </Stack>
+                </Card>
+              ))}
+            </Grid>
+          ) : (
+            <Card className="card-hover fade-in-delay-1">
+              <Text color="secondary">I’ll be publishing my first blog post soon. Stay tuned!</Text>
             </Card>
-          </Grid>
+          )}
+          <Link
+            href="/blog"
+            style={{
+              textDecoration: "none",
+              color: "var(--color-interactive-default)",
+              fontWeight: 500,
+            }}
+          >
+            View all posts →
+          </Link>
         </Stack>
       </section>
 
@@ -289,8 +354,7 @@ export default function Home() {
         <Stack gap={6} align="center">
           <h2 className="section-title fade-in">Get in Touch</h2>
           <Text size="lg" color="secondary" style={{ textAlign: "center", maxWidth: "600px" }}>
-            Interested in discussing frontend architecture, design systems, or engineering
-            leadership? Let's connect.
+            I’m based in Barcelona 🇪🇸 and open to remote collaboration.
           </Text>
           <Stack direction="row" gap={4} style={{ flexWrap: "wrap", justifyContent: "center" }}>
             <Link href="mailto:hello@sergimarquez.com">

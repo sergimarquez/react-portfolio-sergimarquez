@@ -4,7 +4,6 @@ import { readBlogSource } from "@/lib/blog";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import MdxContent from "@/components/MdxContent";
 import { Text, Stack, Badge } from "@/components/primitives";
 
@@ -28,7 +27,7 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
   const mdxSource = await serialize(source, {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
+      rehypePlugins: [rehypeSlug],
     },
   });
 

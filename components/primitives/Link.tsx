@@ -7,10 +7,17 @@ type LinkProps = {
   href: string;
   external?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 };
 
-export default function Link({ children, href, external = false, className = "" }: LinkProps) {
-  const linkStyles = {
+export default function Link({
+  children,
+  href,
+  external = false,
+  className = "",
+  style,
+}: LinkProps) {
+  const baseStyles = {
     color: "var(--color-interactive-default)",
     textDecoration: "underline",
     textDecorationColor: "var(--color-foreground-muted)",
@@ -19,6 +26,8 @@ export default function Link({ children, href, external = false, className = "" 
     transition: "color 0.2s ease, text-decoration-color 0.2s ease",
   };
 
+  const combinedStyles = { ...baseStyles, ...style } as React.CSSProperties;
+
   if (external) {
     return (
       <a
@@ -26,15 +35,7 @@ export default function Link({ children, href, external = false, className = "" 
         target="_blank"
         rel="noopener noreferrer"
         className={className}
-        style={linkStyles}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = "var(--color-interactive-hover)";
-          e.currentTarget.style.textDecorationColor = "var(--color-interactive-hover)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = linkStyles.color;
-          e.currentTarget.style.textDecorationColor = linkStyles.textDecorationColor;
-        }}
+        style={combinedStyles}
       >
         {children}
       </a>
@@ -42,19 +43,7 @@ export default function Link({ children, href, external = false, className = "" 
   }
 
   return (
-    <NextLink
-      href={href}
-      className={className}
-      style={linkStyles}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.color = "var(--color-interactive-hover)";
-        e.currentTarget.style.textDecorationColor = "var(--color-interactive-hover)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.color = linkStyles.color;
-        e.currentTarget.style.textDecorationColor = linkStyles.textDecorationColor;
-      }}
-    >
+    <NextLink href={href} className={className} style={combinedStyles}>
       {children}
     </NextLink>
   );

@@ -7,9 +7,17 @@ type BadgeProps = {
   children: ReactNode;
   variant?: BadgeVariant;
   className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
 };
 
-export default function Badge({ children, variant = "default", className = "" }: BadgeProps) {
+export default function Badge({
+  children,
+  variant = "default",
+  className = "",
+  style,
+  onClick,
+}: BadgeProps) {
   const variantStyles = {
     default: {
       background: "var(--color-background-secondary)",
@@ -44,7 +52,9 @@ export default function Badge({ children, variant = "default", className = "" }:
         fontFamily: typographyTokens.fontFamily.sans,
         borderRadius: borderTokens.radius.full,
         ...variantStyles[variant],
+        ...style,
       }}
+      onClick={onClick}
     >
       {children}
     </span>

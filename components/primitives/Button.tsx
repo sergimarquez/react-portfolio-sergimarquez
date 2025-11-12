@@ -64,6 +64,7 @@ export default function Button({
     <button
       type="button"
       disabled={disabled}
+      data-variant={variant}
       className={className}
       style={{
         ...sizeStyles[size],
@@ -75,22 +76,6 @@ export default function Button({
         cursor: disabled ? "not-allowed" : "pointer",
         transition: "all 0.2s ease",
         ...(props.style || {}),
-      }}
-      onMouseEnter={(e) => {
-        if (!disabled && variant === "primary") {
-          e.currentTarget.style.background = "var(--color-interactive-hover)";
-        } else if (!disabled && variant === "secondary") {
-          e.currentTarget.style.borderColor = "var(--color-interactive-hover)";
-        }
-        props.onMouseEnter?.(e);
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.background = variantStyles[variant].background;
-          e.currentTarget.style.borderColor =
-            variant === "secondary" ? variantStyles[variant].border : "transparent";
-        }
-        props.onMouseLeave?.(e);
       }}
       {...props}
     >

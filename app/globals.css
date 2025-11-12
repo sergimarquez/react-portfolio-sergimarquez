@@ -83,6 +83,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  color: var(--color-interactive-default);
+  text-decoration: underline;
+  text-decoration-color: var(--color-foreground-muted);
+  text-underline-offset: 2px;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-interactive-hover);
+  text-decoration-color: var(--color-interactive-hover);
+}
+
+button[data-variant="primary"]:not(:disabled):hover {
+  background: var(--color-interactive-hover);
+}
+
+button[data-variant="primary"]:not(:disabled):active {
+  background: var(--color-interactive-active);
+}
+
+button[data-variant="secondary"]:not(:disabled):hover {
+  border-color: var(--color-interactive-hover);
+  color: var(--color-interactive-hover);
+}
+
+button[data-variant="ghost"]:not(:disabled):hover {
+  background: var(--color-background-secondary);
+  color: var(--color-interactive-hover);
+}
+
 /* Focus styles for accessibility */
 *:focus-visible {
   outline: 2px solid var(--color-interactive-default);
