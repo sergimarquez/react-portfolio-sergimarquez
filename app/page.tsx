@@ -46,8 +46,8 @@ export default function Home() {
               className="fade-in-delay-1"
               style={{ lineHeight: "1.6" }}
             >
-              I’m Sergi, a Front-End Engineer who enjoys turning complex systems into clear,
-              scalable interfaces.
+              I build web applications that are fast, reliable, and easy to maintain, focusing on
+              performance, clean code, and developer-friendly architectures.
             </Text>
             <Text
               size="lg"
@@ -55,7 +55,7 @@ export default function Home() {
               className="fade-in-delay-2"
               style={{ lineHeight: "1.6" }}
             >
-              I focus on performance, maintainability, and a great developer experience.
+              I enjoy turning complex problems into clear, usable interfaces that people love.
             </Text>
             <Stack direction="row" gap={4} className="fade-in-delay-2" style={{ flexWrap: "wrap" }}>
               <Link href="#projects">
@@ -208,15 +208,16 @@ export default function Home() {
             <Grid cols={3} gap={6}>
               <Stack gap={3}>
                 <Text as="h3" size="xl" weight="semibold">
-                  Architecture & Patterns
+                  Core Front-End
                 </Text>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.8 }}>
                   {[
-                    "Design Systems",
-                    "Component Architecture",
-                    "State Management",
-                    "Code Splitting",
-                    "Micro-frontends",
+                    "JavaScript (ES6+)",
+                    "TypeScript",
+                    "React",
+                    "Next.js",
+                    "HTML5 & CSS3",
+                    "Responsive Design",
                   ].map((item) => (
                     <li key={item} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <span aria-hidden="true">✓</span>
@@ -228,34 +229,40 @@ export default function Home() {
 
               <Stack gap={3}>
                 <Text as="h3" size="xl" weight="semibold">
-                  Frontend Technologies
+                  Architecture & Performance
                 </Text>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.8 }}>
-                  {["React", "Next.js", "TypeScript", "Web Performance", "Accessibility"].map(
-                    (item) => (
-                      <li
-                        key={item}
-                        style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-                      >
-                        <span aria-hidden="true">✓</span>
-                        <Text as="span">{item}</Text>
-                      </li>
-                    ),
-                  )}
+                  {[
+                    "Modular Architecture",
+                    "Component Libraries",
+                    "Design Systems & UI Patterns",
+                    "Code Splitting & Lazy Loading",
+                    "Performance Optimization",
+                    "State Management (Redux)",
+                  ].map((item) => (
+                    <li
+                      key={item}
+                      style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+                    >
+                      <span aria-hidden="true">✓</span>
+                      <Text as="span">{item}</Text>
+                    </li>
+                  ))}
                 </ul>
               </Stack>
 
               <Stack gap={3}>
                 <Text as="h3" size="xl" weight="semibold">
-                  Engineering Practices
+                  Quality & Tooling
                 </Text>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, lineHeight: 1.8 }}>
                   {[
-                    "Testing (Jest, RTL, E2E)",
                     "CI/CD",
-                    "Code Quality",
-                    "Documentation",
-                    "Performance Auditing",
+                    "Testing (Jest, Cypress)",
+                    "Web Accessibility",
+                    "Build Tools: Webpack / Vite",
+                    "APIs: REST / GraphQL",
+                    "Code Quality: ESLint / Prettier",
                   ].map((item) => (
                     <li key={item} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <span aria-hidden="true">✓</span>
