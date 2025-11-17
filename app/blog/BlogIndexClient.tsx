@@ -193,7 +193,7 @@ export default function BlogIndexClient({ initialPosts }: Props) {
                   </Text>
                   <Grid cols={2} gap={6}>
                     {postsByYear[year].map((post) => (
-                      <Card key={post.slug} className="card-hover">
+                      <Card key={post.slug} as="article" className="card-hover">
                         <Stack gap={4}>
                           <Stack gap={2}>
                             <Link

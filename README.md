@@ -44,6 +44,7 @@ Visit [http://localhost:3000](http://localhost:3000)
 - `npm run typecheck` - TypeScript strict check
 - `npm run test` - Jest + React Testing Library unit tests
 - `npm run format` - Format code with Prettier
+- `npm run test:e2e` - Playwright smoke tests
 
 ## Project Structure
 
