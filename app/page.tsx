@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Text, Button, Card, Stack, Grid, Link, Badge } from "@/components/primitives";
 import { getBlogSlugs, readBlogSource } from "@/lib/blog";
 
@@ -85,6 +86,21 @@ export default function Home() {
                     size for sub-100KB initial load.
                   </Text>
                 </Stack>
+                <div
+                  style={{
+                    borderRadius: "1rem",
+                    overflow: "hidden",
+                    border: "1px solid var(--color-border-default)",
+                  }}
+                >
+                  <Image
+                    src="/projects/fintreo.png"
+                    alt="Screenshot of Fintreo app"
+                    width={640}
+                    height={400}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </div>
                 <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
                   <Badge>Next.js 15</Badge>
                   <Badge>React 18</Badge>
@@ -113,6 +129,21 @@ export default function Home() {
                     and performance.
                   </Text>
                 </Stack>
+                <div
+                  style={{
+                    borderRadius: "1rem",
+                    overflow: "hidden",
+                    border: "1px solid var(--color-border-default)",
+                  }}
+                >
+                  <Image
+                    src="/projects/3good.png"
+                    alt="Screenshot of 3Good app"
+                    width={640}
+                    height={400}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </div>
                 <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
                   <Badge>React</Badge>
                   <Badge>TypeScript</Badge>
@@ -139,6 +170,21 @@ export default function Home() {
                     packages for cross-project reuse.
                   </Text>
                 </Stack>
+                <div
+                  style={{
+                    borderRadius: "1rem",
+                    overflow: "hidden",
+                    border: "1px solid var(--color-border-default)",
+                  }}
+                >
+                  <Image
+                    src="/projects/retro-portfolio.png"
+                    alt="Design system architecture showcase"
+                    width={640}
+                    height={400}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </div>
                 <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
                   <Badge>Design System</Badge>
                   <Badge>TypeScript</Badge>
@@ -165,6 +211,21 @@ export default function Home() {
                     type safety throughout.
                   </Text>
                 </Stack>
+                <div
+                  style={{
+                    borderRadius: "1rem",
+                    overflow: "hidden",
+                    border: "1px solid var(--color-border-default)",
+                  }}
+                >
+                  <Image
+                    src="/projects/siteblockr.png"
+                    alt="Screenshot of SiteBlockr extension"
+                    width={640}
+                    height={400}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </div>
                 <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
                   <Badge>Chrome Extension</Badge>
                   <Badge>TypeScript</Badge>
