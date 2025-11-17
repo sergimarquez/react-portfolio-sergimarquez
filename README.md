@@ -1,6 +1,6 @@
-# Portfolio — Reusable Frontend Architecture Baseline
+# Sergi Marquez — Frontend Engineering Portfolio
 
-A production-ready Next.js architecture designed for modularity, scalability, and maintainability. Built as a reusable baseline for portfolio and future projects.
+This repo powers my personal site. It’s a home for my work and a reference architecture for how I like to build React/Next.js apps—typed boundaries, design tokens, shared primitives, and fully automated testing.
 
 ## Architecture Principles
 
@@ -53,7 +53,7 @@ app/              # Next.js App Router routes
 components/       # UI primitives and composites
   primitives/     # Design system components (Button, Card, Text, etc.)
 lib/              # Domain logic, utilities, API clients
-content/          # MDX files (case studies, blog posts)
+content/          # MDX blog posts
 styles/           # Design tokens (colors, spacing, typography)
 tests/            # Test utilities and setup
 ```
