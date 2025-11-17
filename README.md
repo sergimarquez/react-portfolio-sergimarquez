@@ -42,6 +42,7 @@ Visit [http://localhost:3000](http://localhost:3000)
 - `npm run build` - Production build (runs typecheck + lint first)
 - `npm run lint` - Run ESLint
 - `npm run typecheck` - TypeScript strict check
+- `npm run test` - Jest + React Testing Library unit tests
 - `npm run format` - Format code with Prettier
 
 ## Project Structure
