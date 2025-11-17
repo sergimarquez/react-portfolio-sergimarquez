@@ -18,12 +18,14 @@ export default function Link({
   style,
 }: LinkProps) {
   const baseStyles = {
-    color: "var(--color-interactive-default)",
+    color: "var(--link-color, var(--color-interactive-default))",
     textDecoration: "underline",
-    textDecorationColor: "var(--color-foreground-muted)",
-    textUnderlineOffset: "2px",
+    textDecorationColor: "var(--link-underline, var(--color-foreground-muted))",
+    textDecorationThickness: "var(--link-underline-thickness, 1px)",
+    textUnderlineOffset: "4px",
     fontFamily: typographyTokens.fontFamily.sans,
-    transition: "color 0.2s ease, text-decoration-color 0.2s ease",
+    transition:
+      "color 0.25s ease, text-decoration-color 0.25s ease, text-decoration-thickness 0.25s ease",
   };
 
   const combinedStyles = { ...baseStyles, ...style } as React.CSSProperties;

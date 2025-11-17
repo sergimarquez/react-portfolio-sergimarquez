@@ -236,14 +236,7 @@ export default function BlogIndexClient({ initialPosts }: Props) {
                               ))}
                             </Stack>
                           )}
-                          <Link
-                            href={`/blog/${post.slug}`}
-                            style={{
-                              textDecoration: "none",
-                              color: "var(--color-interactive-default)",
-                              fontWeight: 500,
-                            }}
-                          >
+                          <Link href={`/blog/${post.slug}`} className="cta-link">
                             Read more →
                           </Link>
                         </Stack>

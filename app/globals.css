@@ -84,18 +84,45 @@ body {
 }
 
 a {
-  color: var(--color-interactive-default);
+  --link-color: var(--color-interactive-default);
+  --link-underline: var(--color-foreground-muted);
+  --link-underline-thickness: 1px;
+  color: var(--link-color);
   text-decoration: underline;
-  text-decoration-color: var(--color-foreground-muted);
-  text-underline-offset: 2px;
+  text-decoration-color: var(--link-underline);
+  text-decoration-thickness: var(--link-underline-thickness);
+  text-underline-offset: 4px;
   transition:
-    color 0.2s ease,
-    text-decoration-color 0.2s ease;
+    color 0.25s ease,
+    text-decoration-color 0.25s ease,
+    text-decoration-thickness 0.25s ease;
 }
 
-a:hover {
-  color: var(--color-interactive-hover);
-  text-decoration-color: var(--color-interactive-hover);
+a:hover,
+a:focus-visible {
+  --link-color: var(--color-interactive-hover);
+  --link-underline: var(--color-interactive-hover);
+  --link-underline-thickness: 2px;
+}
+
+button[data-variant] {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(0);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+button[data-variant]:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-base);
+}
+
+button[data-variant]:not(:disabled):active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 button[data-variant="primary"]:not(:disabled):hover {
@@ -186,12 +213,127 @@ button[data-variant="ghost"]:not(:disabled):hover {
 
 /* Card hover effect */
 .card-hover {
-  transition: all 0.2s ease;
+  position: relative;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-.card-hover:hover {
-  transform: translateY(-2px);
+.card-hover:hover,
+.card-hover:focus-within {
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(254, 254, 254, 0), rgba(250, 249, 247, 0.7));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.project-card.card-hover:hover,
+.project-card.card-hover:focus-within {
+  transform: translateY(-12px);
+  box-shadow:
+    0 25px 45px rgba(0, 0, 0, 0.08),
+    0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.project-card.card-hover:hover::before,
+.project-card.card-hover:focus-within::before {
+  opacity: 1;
+}
+
+.project-card__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+.project-card__image {
+  margin: 0.75rem 0 1.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  position: relative;
+  width: 100%;
+  padding-top: 62.5%;
+}
+
+.project-card__image-link {
+  display: block;
+}
+
+.project-card__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card__links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  position: relative;
+  z-index: 4;
+  flex-wrap: wrap;
+}
+
+.project-link,
+.project-link--secondary {
+  font-weight: 600;
+  color: var(--color-interactive-default);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+  position: relative;
+  padding-bottom: 0.15rem;
+}
+
+.project-link::after,
+.project-link--secondary::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.project-link:hover,
+.project-link:focus-visible,
+.project-link--secondary:hover,
+.project-link--secondary:focus-visible {
+  color: var(--color-interactive-hover);
+  text-decoration: none;
+}
+
+.project-link:hover::after,
+.project-link:focus-visible::after,
+.project-link--secondary:hover::after,
+.project-link--secondary:focus-visible::after {
+  transform: scaleX(1);
 }
 
 /* Skills box responsive */

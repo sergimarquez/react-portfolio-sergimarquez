@@ -2,6 +2,45 @@ import Image from "next/image";
 import { Text, Button, Card, Stack, Grid, Link, Badge } from "@/components/primitives";
 import { getBlogSlugs, readBlogSource } from "@/lib/blog";
 
+type ProjectCard = {
+  title: string;
+  description: string;
+  image: { src: string; alt: string };
+  tags: string[];
+  liveUrl?: string;
+  repoUrl?: string;
+};
+
+const projectCards: ProjectCard[] = [
+  {
+    title: "Fintreo",
+    description:
+      "Modern personal finance app with real-time sync, privacy-first architecture, and performance budgets under 100KB for the initial payload.",
+    image: { src: "/projects/fintreo.png", alt: "Screenshot of Fintreo app" },
+    tags: ["Next.js", "TypeScript", "Firebase", "Performance"],
+    liveUrl: "https://fintreo.com",
+  },
+  {
+    title: "3Good",
+    description:
+      "Daily gratitude tracker focused on wellbeing and privacy. Built with Vite and modern React patterns to keep interactions instant on any device.",
+    image: { src: "/projects/3good.png", alt: "Screenshot of 3Good app" },
+    tags: ["React", "TypeScript", "Vite", "Privacy"],
+    liveUrl: "https://3good.app/",
+    repoUrl: "https://github.com/sergimarquez/three-things",
+  },
+  {
+    title: "SiteBlockr",
+    description:
+      "Chrome extension with privacy-focused controls, optimized Chrome API usage, and strict type safety to keep memory and CPU impact minimal.",
+    image: { src: "/projects/siteblockr.png", alt: "Screenshot of SiteBlockr extension" },
+    tags: ["Chrome APIs", "TypeScript", "Privacy", "Performance"],
+    liveUrl:
+      "https://chromewebstore.google.com/detail/ogicdnegacclceajhgaoehlnidgndllp?utm_source=item-share-cb",
+    repoUrl: "https://github.com/sergimarquez/site-blockr",
+  },
+];
+
 function getLatestPosts(limit = 2) {
   const slugs = getBlogSlugs();
   const posts = slugs.map((slug) => {
@@ -71,177 +110,95 @@ export default function Home() {
       <section id="projects" style={{ marginBottom: "10rem" }}>
         <Stack gap={8}>
           <h2 className="section-title fade-in">Featured Projects</h2>
-          <Grid cols={2} gap={8}>
-            <Card className="card-hover fade-in-delay-1">
-              <Stack gap={5}>
-                <Stack gap={3}>
-                  <Link href="https://fintreo.com" external>
-                    <Text as="h3" size="2xl" weight="semibold">
-                      Fintreo
-                    </Text>
-                  </Link>
-                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
-                    Modern personal finance application built with Next.js 15 and React 18.
-                    Implemented real-time sync, privacy-first architecture, and optimized bundle
-                    size for sub-100KB initial load.
-                  </Text>
-                </Stack>
-                <div
-                  style={{
-                    borderRadius: "1rem",
-                    overflow: "hidden",
-                    border: "1px solid var(--color-border-default)",
-                  }}
+          <Grid cols={3} gap={6} style={{ alignItems: "stretch" }}>
+            {projectCards.map((project, index) => {
+              const animationClass = index % 2 === 0 ? "fade-in-delay-1" : "fade-in-delay-2";
+              return (
+                <Card
+                  key={project.title}
+                  as="div"
+                  className={`project-card card-hover ${animationClass}`}
                 >
-                  <Image
-                    src="/projects/fintreo.png"
-                    alt="Screenshot of Fintreo app"
-                    width={640}
-                    height={400}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                </div>
-                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
-                  <Badge>Next.js 15</Badge>
-                  <Badge>React 18</Badge>
-                  <Badge>TypeScript</Badge>
-                  <Badge>Performance</Badge>
-                </Stack>
-                <Stack direction="row" gap={4}>
-                  <Link href="https://fintreo.com" external>
-                    Live demo →
-                  </Link>
-                </Stack>
-              </Stack>
-            </Card>
+                  <div className="project-card__content">
+                    <Stack gap={4}>
+                      <div>
+                        <Text
+                          as="h3"
+                          size="2xl"
+                          weight="semibold"
+                          style={{ letterSpacing: "-0.02em" }}
+                        >
+                          {project.title}
+                        </Text>
+                        {project.liveUrl ? (
+                          <a
+                            href={project.liveUrl}
+                            className="project-card__image-link"
+                            aria-label={`Visit ${project.title} live site`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <div className="project-card__image">
+                              <Image
+                                src={project.image.src}
+                                alt={project.image.alt}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 32vw"
+                                style={{ objectFit: "cover" }}
+                              />
+                            </div>
+                          </a>
+                        ) : (
+                          <div className="project-card__image">
+                            <Image
+                              src={project.image.src}
+                              alt={project.image.alt}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 32vw"
+                              style={{ objectFit: "cover" }}
+                            />
+                          </div>
+                        )}
+                        <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                          {project.description}
+                        </Text>
+                      </div>
 
-            <Card className="card-hover fade-in-delay-2">
-              <Stack gap={5}>
-                <Stack gap={3}>
-                  <Link href="https://3good.app/" external>
-                    <Text as="h3" size="2xl" weight="semibold">
-                      3Good
-                    </Text>
-                  </Link>
-                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
-                    Privacy-first gratitude app with minimal bundle size. Built with Vite for
-                    optimal dev experience, implementing modern React patterns for state management
-                    and performance.
-                  </Text>
-                </Stack>
-                <div
-                  style={{
-                    borderRadius: "1rem",
-                    overflow: "hidden",
-                    border: "1px solid var(--color-border-default)",
-                  }}
-                >
-                  <Image
-                    src="/projects/3good.png"
-                    alt="Screenshot of 3Good app"
-                    width={640}
-                    height={400}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                </div>
-                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
-                  <Badge>React</Badge>
-                  <Badge>TypeScript</Badge>
-                  <Badge>Vite</Badge>
-                  <Badge>Privacy</Badge>
-                </Stack>
-                <Stack direction="row" gap={4}>
-                  <Link href="https://3good.app/" external>
-                    Live demo →
-                  </Link>
-                </Stack>
-              </Stack>
-            </Card>
+                      {project.tags.length > 0 && (
+                        <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                          {project.tags.map((tag) => (
+                            <Badge key={`${project.title}-${tag}`}>{tag}</Badge>
+                          ))}
+                        </Stack>
+                      )}
 
-            <Card className="card-hover fade-in-delay-1">
-              <Stack gap={5}>
-                <Stack gap={3}>
-                  <Text as="h3" size="2xl" weight="semibold">
-                    Design System Architecture
-                  </Text>
-                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
-                    Reusable frontend architecture baseline with design tokens, type-safe
-                    primitives, and testing infrastructure. Built to be extracted into standalone
-                    packages for cross-project reuse.
-                  </Text>
-                </Stack>
-                <div
-                  style={{
-                    borderRadius: "1rem",
-                    overflow: "hidden",
-                    border: "1px solid var(--color-border-default)",
-                  }}
-                >
-                  <Image
-                    src="/projects/retro-portfolio.png"
-                    alt="Design system architecture showcase"
-                    width={640}
-                    height={400}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                </div>
-                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
-                  <Badge>Design System</Badge>
-                  <Badge>TypeScript</Badge>
-                  <Badge>Architecture</Badge>
-                  <Badge>Reusability</Badge>
-                </Stack>
-              </Stack>
-            </Card>
-
-            <Card className="card-hover fade-in-delay-2">
-              <Stack gap={5}>
-                <Stack gap={3}>
-                  <Link
-                    href="https://chromewebstore.google.com/detail/ogicdnegacclceajhgaoehlnidgndllp"
-                    external
-                  >
-                    <Text as="h3" size="2xl" weight="semibold">
-                      SiteBlockr
-                    </Text>
-                  </Link>
-                  <Text color="secondary" style={{ lineHeight: "1.7" }}>
-                    Chrome extension with privacy-focused architecture. Implemented Chrome APIs
-                    efficiently, optimized for minimal performance impact, and maintained strict
-                    type safety throughout.
-                  </Text>
-                </Stack>
-                <div
-                  style={{
-                    borderRadius: "1rem",
-                    overflow: "hidden",
-                    border: "1px solid var(--color-border-default)",
-                  }}
-                >
-                  <Image
-                    src="/projects/siteblockr.png"
-                    alt="Screenshot of SiteBlockr extension"
-                    width={640}
-                    height={400}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                </div>
-                <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
-                  <Badge>Chrome Extension</Badge>
-                  <Badge>TypeScript</Badge>
-                  <Badge>Privacy</Badge>
-                  <Badge>Performance</Badge>
-                </Stack>
-                <Stack direction="row" gap={4}>
-                  <Link
-                    href="https://chromewebstore.google.com/detail/ogicdnegacclceajhgaoehlnidgndllp"
-                    external
-                  >
-                    Chrome Store →
-                  </Link>
-                </Stack>
-              </Stack>
-            </Card>
+                      <div className="project-card__links">
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="project-link"
+                          >
+                            Live demo →
+                          </a>
+                        )}
+                        {project.repoUrl && (
+                          <a
+                            href={project.repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="project-link project-link--secondary"
+                          >
+                            GitHub →
+                          </a>
+                        )}
+                      </div>
+                    </Stack>
+                  </div>
+                </Card>
+              );
+            })}
           </Grid>
         </Stack>
       </section>
@@ -374,14 +331,7 @@ export default function Home() {
                         ))}
                       </Stack>
                     )}
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      style={{
-                        textDecoration: "none",
-                        color: "var(--color-interactive-default)",
-                        fontWeight: 500,
-                      }}
-                    >
+                    <Link href={`/blog/${post.slug}`} className="cta-link">
                       Read more →
                     </Link>
                   </Stack>
@@ -393,14 +343,7 @@ export default function Home() {
               <Text color="secondary">I’ll be publishing my first blog post soon. Stay tuned!</Text>
             </Card>
           )}
-          <Link
-            href="/blog"
-            style={{
-              textDecoration: "none",
-              color: "var(--color-interactive-default)",
-              fontWeight: 500,
-            }}
-          >
+          <Link href="/blog" className="cta-link">
             View all posts →
           </Link>
         </Stack>
