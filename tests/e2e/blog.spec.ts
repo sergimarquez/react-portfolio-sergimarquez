@@ -28,8 +28,10 @@ test.describe("Blog page", () => {
     const readMore = firstCard.getByRole("link", { name: /read more/i });
     await expect(readMore).toBeVisible();
     const href = await readMore.getAttribute("href");
-    await readMore.click();
-    await expect(page).toHaveURL(href!);
+    await Promise.all([
+      page.waitForURL(`**${href}`),
+      readMore.click(),
+    ]);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 });
