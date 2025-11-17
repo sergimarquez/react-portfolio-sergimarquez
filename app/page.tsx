@@ -27,7 +27,7 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero" style={{ marginBottom: "10rem" }}>
         <Stack gap={8} align="start">
-          <Stack gap={6} style={{ maxWidth: "700px" }}>
+          <Stack gap={6} style={{ maxWidth: "550px" }}>
             <Text
               as="h1"
               size="6xl"
@@ -38,7 +38,7 @@ export default function Home() {
                 lineHeight: "1.1",
               }}
             >
-              Sergi Marquez
+              Hi, I'm Sergi
             </Text>
             <Text
               size="xl"
@@ -46,17 +46,10 @@ export default function Home() {
               className="fade-in-delay-1"
               style={{ lineHeight: "1.6" }}
             >
-              I build web applications that are fast, reliable, and easy to maintain, focusing on
-              performance, clean code, and developer-friendly architectures.
+              I build web applications focusing on performance, clean code, and developer-friendly
+              architectures.
             </Text>
-            <Text
-              size="lg"
-              color="secondary"
-              className="fade-in-delay-2"
-              style={{ lineHeight: "1.6" }}
-            >
-              I enjoy turning complex problems into clear, usable interfaces that people love.
-            </Text>
+
             <Stack direction="row" gap={4} className="fade-in-delay-2" style={{ flexWrap: "wrap" }}>
               <Link href="#projects">
                 <Button variant="primary" size="lg">
@@ -195,14 +188,13 @@ export default function Home() {
       {/* Skills Section – Option A only */}
       <section id="skills-option-a" style={{ marginBottom: "6rem" }}>
         <Stack gap={6}>
-          <h2 className="section-title fade-in">Technical Expertise — Option A (Tokens + Lists)</h2>
+          <h2 className="section-title fade-in">Technical Expertise </h2>
           <div
-            className="fade-in-delay-1"
+            className="fade-in-delay-1 skills-box"
             style={{
               background: "var(--color-background-secondary)",
               border: "1px solid var(--color-border-default)",
               borderRadius: "1rem",
-              padding: "3rem",
             }}
           >
             <Grid cols={3} gap={6}>
@@ -240,10 +232,7 @@ export default function Home() {
                     "Performance Optimization",
                     "State Management (Redux)",
                   ].map((item) => (
-                    <li
-                      key={item}
-                      style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-                    >
+                    <li key={item} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <span aria-hidden="true">✓</span>
                       <Text as="span">{item}</Text>
                     </li>
@@ -360,10 +349,11 @@ export default function Home() {
       <section id="contact" style={{ marginBottom: "8rem" }}>
         <Stack gap={6} align="center">
           <h2 className="section-title fade-in">Get in Touch</h2>
-          <Text size="lg" color="secondary" style={{ textAlign: "center", maxWidth: "600px" }}>
-            I’m based in Barcelona 🇪🇸 and open to remote collaboration.
-          </Text>
-          <Stack direction="row" gap={4} style={{ flexWrap: "wrap", justifyContent: "center" }}>
+          <Stack
+            direction="row"
+            gap={4}
+            style={{ flexWrap: "wrap", justifyContent: "center", marginBottom: "1.5rem" }}
+          >
             <Link href="mailto:hello@sergimarquez.com">
               <Button variant="primary" size="lg">
                 Email me
@@ -380,6 +370,9 @@ export default function Home() {
               </Button>
             </Link>
           </Stack>
+          <Text size="lg" color="secondary" style={{ textAlign: "center", maxWidth: "600px" }}>
+            I’m based in Barcelona 🇪🇸 and open to remote collaboration.
+          </Text>
         </Stack>
       </section>
     </main>

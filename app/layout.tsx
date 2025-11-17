@@ -11,7 +11,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Sergi Marquez — Frontend Architect & Engineer",
+  title: "Sergi Marquez — Frontend Engineer",
   description:
     "Frontend architect and engineer building scalable, maintainable frontend architectures. Specialized in React, Next.js, TypeScript, design systems, and engineering leadership.",
 };
