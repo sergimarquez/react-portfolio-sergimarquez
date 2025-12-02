@@ -12,6 +12,7 @@ type ProjectCard = {
 };
 
 const projectCards: ProjectCard[] = [
+  // Top row (3 columns)
   {
     title: "Fintreo",
     description:
@@ -30,6 +31,17 @@ const projectCards: ProjectCard[] = [
     repoUrl: "https://github.com/sergimarquez/three-things",
   },
   {
+    title: "Design System",
+    description:
+      "Modern design system built with React and TypeScript. Framework-agnostic tokens and headless components for building consistent, accessible UIs across projects.",
+    image: { src: "/projects/design-system.png", alt: "Screenshot of Design System Storybook" },
+    tags: ["React", "TypeScript", "Storybook", "Vite", "Accessibility"],
+    liveUrl:
+      "https://design-system-c8tq69gah-sergis-projects-2dc6d14d.vercel.app/?path=/story/welcome--welcome",
+    repoUrl: "https://github.com/sergimarquez/design-system",
+  },
+  // Bottom row (2 centered columns)
+  {
     title: "SiteBlockr",
     description:
       "Chrome extension with privacy-focused controls, optimized Chrome API usage, and strict type safety to keep memory and CPU impact minimal.",
@@ -38,6 +50,15 @@ const projectCards: ProjectCard[] = [
     liveUrl:
       "https://chromewebstore.google.com/detail/ogicdnegacclceajhgaoehlnidgndllp?utm_source=item-share-cb",
     repoUrl: "https://github.com/sergimarquez/site-blockr",
+  },
+  {
+    title: "Retro Portfolio",
+    description:
+      "A nostalgic portfolio website with retro aesthetics, showcasing projects with a vintage computing feel and modern web technologies.",
+    image: { src: "/projects/retro-portfolio.png", alt: "Screenshot of Retro Portfolio website" },
+    tags: ["Next.js", "TypeScript", "Design"],
+    liveUrl: "https://sergimarquez.dev",
+    repoUrl: "https://github.com/sergimarquez/retro-portfolio",
   },
 ];
 
@@ -110,8 +131,10 @@ export default function Home() {
       <section id="projects" style={{ marginBottom: "10rem" }}>
         <Stack gap={8}>
           <h2 className="section-title fade-in">Featured Projects</h2>
+
+          {/* Top row: 3 columns */}
           <Grid cols={3} gap={6} style={{ alignItems: "stretch" }}>
-            {projectCards.map((project, index) => {
+            {projectCards.slice(0, 3).map((project, index) => {
               const animationClass = index % 2 === 0 ? "fade-in-delay-1" : "fade-in-delay-2";
               return (
                 <Card
@@ -200,6 +223,104 @@ export default function Home() {
               );
             })}
           </Grid>
+
+          {/* Bottom row: 2 centered columns */}
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+            <Grid
+              cols={2}
+              gap={6}
+              style={{ alignItems: "stretch", maxWidth: "800px", width: "100%" }}
+            >
+              {projectCards.slice(3).map((project, index) => {
+                const animationClass = index % 2 === 0 ? "fade-in-delay-1" : "fade-in-delay-2";
+                return (
+                  <Card
+                    key={project.title}
+                    as="div"
+                    className={`project-card card-hover ${animationClass}`}
+                  >
+                    <div className="project-card__content">
+                      <Stack gap={4}>
+                        <div>
+                          <Text
+                            as="h3"
+                            size="2xl"
+                            weight="semibold"
+                            style={{ letterSpacing: "-0.02em" }}
+                          >
+                            {project.title}
+                          </Text>
+                          {project.liveUrl ? (
+                            <a
+                              href={project.liveUrl}
+                              className="project-card__image-link"
+                              aria-label={`Visit ${project.title} live site`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <div className="project-card__image">
+                                <Image
+                                  src={project.image.src}
+                                  alt={project.image.alt}
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, 48vw"
+                                  style={{ objectFit: "cover" }}
+                                />
+                              </div>
+                            </a>
+                          ) : (
+                            <div className="project-card__image">
+                              <Image
+                                src={project.image.src}
+                                alt={project.image.alt}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 48vw"
+                                style={{ objectFit: "cover" }}
+                              />
+                            </div>
+                          )}
+                          <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                            {project.description}
+                          </Text>
+                        </div>
+
+                        {project.tags.length > 0 && (
+                          <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                            {project.tags.map((tag) => (
+                              <Badge key={`${project.title}-${tag}`}>{tag}</Badge>
+                            ))}
+                          </Stack>
+                        )}
+
+                        <div className="project-card__links">
+                          {project.liveUrl && (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="project-link"
+                            >
+                              Live demo →
+                            </a>
+                          )}
+                          {project.repoUrl && (
+                            <a
+                              href={project.repoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="project-link project-link--secondary"
+                            >
+                              GitHub →
+                            </a>
+                          )}
+                        </div>
+                      </Stack>
+                    </div>
+                  </Card>
+                );
+              })}
+            </Grid>
+          </div>
         </Stack>
       </section>
 
