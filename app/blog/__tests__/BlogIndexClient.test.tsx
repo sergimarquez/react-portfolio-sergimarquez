@@ -38,7 +38,8 @@ describe("BlogIndexClient", () => {
     const user = userEvent.setup();
     render(<BlogIndexClient initialPosts={posts} />);
 
-    await user.click(screen.getByRole("button", { name: "2024" }));
+    // Button now shows "2024 1" (year + count), so we use a regex
+    await user.click(screen.getByRole("button", { name: /^2024/ }));
 
     expect(screen.getByText(/Performance Notes/)).toBeInTheDocument();
     expect(screen.queryByText(/Design Systems/)).not.toBeInTheDocument();
