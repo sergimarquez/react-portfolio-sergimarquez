@@ -106,9 +106,9 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
               color: "var(--color-foreground-primary)",
             }}
           >
-            <MdxContent source={mdxSource} />
+        <MdxContent source={mdxSource} />
           </div>
-        </article>
+      </article>
 
         {/* Footer */}
         <div
