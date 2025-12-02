@@ -1,0 +1,80 @@
+---
+title: SOLID - The Simple Way To Understand
+date: 2025-11-07
+summary: Breaking down SOLID principles with practical frontend examples you can apply today.
+tags: [solid, principles, clean code, frontend]
+---
+
+SOLID principles get mentioned a lot, but they're often explained with abstract examples that don't relate to frontend work. Let me break them down with React examples.
+
+## Single Responsibility Principle
+
+A component should have one reason to change. If you're updating a component because the API changed, and also because the design changed, it's doing too much.
+
+```typescript
+// ❌ Too many responsibilities
+function UserCard({ userId }) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    fetch(`/api/users/${userId}`).then(r => r.json()).then(setUser);
+  }, [userId]);
+
+  return (
+    <div>
+      <h2>{user?.name}</h2>
+      <button onClick={() => deleteUser(userId)}>Delete</button>
+    </div>
+  );
+}
+
+// ✅ Separated concerns
+function UserCard({ user, onDelete }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <button onClick={onDelete}>Delete</button>
+    </div>
+  );
+}
+```
+
+## Open/Closed Principle
+
+Open for extension, closed for modification. Use composition instead of modifying existing components.
+
+Instead of adding props to handle every variation, create variants or use composition:
+
+```typescript
+// ✅ Extensible without modification
+function Button({ variant, children, ...props }) {
+  return <button className={variants[variant]} {...props}>{children}</button>;
+}
+```
+
+## Liskov Substitution Principle
+
+Subtypes should be substitutable for their base types. In React, this means components that extend others should work in the same contexts.
+
+## Interface Segregation Principle
+
+Don't force components to depend on interfaces they don't use. Prefer specific props over a giant `options` object.
+
+```typescript
+// ❌ Too broad
+function Modal({ options }) {
+  /* ... */
+}
+
+// ✅ Specific props
+function Modal({ isOpen, onClose, title, children }) {
+  /* ... */
+}
+```
+
+## Dependency Inversion Principle
+
+Depend on abstractions, not concretions. Use interfaces or types to define contracts, then implement them.
+
+## The Takeaway
+
+SOLID isn't about following rules—it's about writing code that's easier to change. Start with single responsibility. The rest follows naturally.

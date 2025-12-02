@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Text, Card, Stack, Grid, Badge, Button } from "@/components/primitives";
+import { Text, Card, Stack, Badge, Button } from "@/components/primitives";
 
 type BlogPost = {
   slug: string;
@@ -65,10 +65,10 @@ export default function BlogIndexClient({ initialPosts }: Props) {
     return filtered;
   }, [initialPosts, selectedTag, selectedYear]);
 
-  // Group posts by year for display
+  // Group posts by year for sidebar
   const postsByYear = useMemo(() => {
     const grouped: Record<string, BlogPost[]> = {};
-    filteredPosts.forEach((post) => {
+    initialPosts.forEach((post) => {
       if (!post.date) return;
       const year = new Date(post.date).getFullYear().toString();
       if (!grouped[year]) {
@@ -77,182 +77,183 @@ export default function BlogIndexClient({ initialPosts }: Props) {
       grouped[year].push(post);
     });
     return grouped;
-  }, [filteredPosts]);
+  }, [initialPosts]);
 
   const activeFilters = selectedTag || selectedYear;
   const hasPosts = filteredPosts.length > 0;
 
   return (
-    <main style={{ maxWidth: "1200px", width: "90%", margin: "0 auto", padding: "4rem 1rem" }}>
-      <Stack gap={8}>
-        {/* Header */}
-        <Stack gap={4} style={{ maxWidth: "700px" }}>
-          <Text
-            as="h1"
-            size="5xl"
-            weight="bold"
-            className="fade-in"
-            style={{ letterSpacing: "-0.03em" }}
-          >
-            Blog
-          </Text>
-          <Text
-            size="lg"
-            color="secondary"
-            className="fade-in-delay-1"
-            style={{ lineHeight: "1.6" }}
-          >
-            Thoughts on frontend architecture, design systems, and engineering leadership.
-          </Text>
-        </Stack>
-
-        {/* Filters */}
-        <Stack gap={4} className="fade-in-delay-1">
-          <Stack direction="row" gap={3} style={{ flexWrap: "wrap", alignItems: "center" }}>
-            <Text size="sm" weight="medium" color="secondary">
-              Filter by year:
-            </Text>
-            <Button
-              variant={selectedYear === null ? "primary" : "secondary"}
-              size="sm"
-              onClick={() => setSelectedYear(null)}
-            >
-              All Years
-            </Button>
-            {allYears.map((year) => (
-              <Button
-                key={year}
-                variant={selectedYear === year ? "primary" : "secondary"}
-                size="sm"
-                onClick={() => setSelectedYear(year)}
+    <main
+      style={{
+        maxWidth: "1400px",
+        width: "90%",
+        margin: "0 auto",
+        padding: "4rem 1rem",
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "280px 1fr",
+          gap: "4rem",
+          alignItems: "start",
+        }}
+        className="blog-layout"
+      >
+        {/* Sidebar */}
+        <aside
+          className="blog-sidebar fade-in"
+          style={{
+            position: "sticky",
+            top: "6rem",
+            height: "fit-content",
+          }}
+        >
+          <Stack gap={6}>
+            {/* Header */}
+            <Stack gap={2}>
+              <Text
+                as="h1"
+                size="4xl"
+                weight="bold"
+                style={{ letterSpacing: "-0.03em" }}
               >
-                {year}
-              </Button>
-            ))}
-          </Stack>
-
-          {allTags.length > 0 && (
-            <Stack direction="row" gap={2} style={{ flexWrap: "wrap", alignItems: "center" }}>
-              <Text size="sm" weight="medium" color="secondary">
-                Tags:
+                Blog
               </Text>
-              <Button
-                variant={selectedTag === null ? "primary" : "ghost"}
-                size="sm"
-                onClick={() => setSelectedTag(null)}
-              >
-                All
-              </Button>
-              {allTags.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant={selectedTag === tag ? "info" : "default"}
-                  style={{ cursor: "pointer", userSelect: "none" }}
-                  onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </Stack>
-          )}
-
-          {activeFilters && (
-            <Stack direction="row" gap={2} style={{ flexWrap: "wrap", alignItems: "center" }}>
-              <Text size="sm" color="secondary">
-                Showing {filteredPosts.length} post{filteredPosts.length !== 1 ? "s" : ""}
-                {selectedTag && ` tagged "${selectedTag}"`}
-                {selectedYear && ` from ${selectedYear}`}
+              <Text size="sm" color="secondary" style={{ lineHeight: "1.5" }}>
+                Thoughts on frontend architecture, design systems, and engineering leadership.
               </Text>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setSelectedTag(null);
-                  setSelectedYear(null);
-                }}
-              >
-                Clear filters
-              </Button>
             </Stack>
-          )}
-        </Stack>
 
-        {/* Posts by Year */}
-        {hasPosts ? (
-          <Stack gap={10}>
-            {Object.keys(postsByYear)
-              .sort((a, b) => b.localeCompare(a))
-              .map((year, yearIndex) => (
-                <Stack
-                  key={year}
-                  gap={6}
-                  className={yearIndex < 2 ? "fade-in-delay-2" : "fade-in-delay-3"}
+            {/* Years Timeline */}
+            <Stack gap={3}>
+              <Text size="xs" weight="semibold" color="muted" style={{ textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Timeline
+              </Text>
+              <Stack gap={1}>
+                <button
+                  onClick={() => setSelectedYear(null)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: "0.5rem 0",
+                    textAlign: "left",
+                    cursor: "pointer",
+                    color: selectedYear === null
+                      ? "var(--color-interactive-default)"
+                      : "var(--color-foreground-secondary)",
+                    fontSize: "0.95rem",
+                    fontWeight: selectedYear === null ? 600 : 400,
+                    transition: "color 0.2s ease",
+                  }}
                 >
-                  <Text as="h2" size="3xl" weight="semibold" style={{ letterSpacing: "-0.02em" }}>
-                    {year}
-                  </Text>
-                  <Grid cols={2} gap={6}>
-                    {postsByYear[year].map((post) => (
-                      <Card key={post.slug} as="article" className="card-hover">
-                        <Stack gap={4}>
-                          <Stack gap={2}>
-                            <Link
-                              href={`/blog/${post.slug}`}
-                              style={{
-                                textDecoration: "none",
-                                color: "var(--color-foreground-primary)",
-                              }}
-                            >
-                              <Text
-                                as="h3"
-                                size="2xl"
-                                weight="semibold"
-                                style={{ lineHeight: "1.2" }}
-                              >
-                                {post.title}
-                              </Text>
-                            </Link>
-                            {post.date && (
-                              <Text size="sm" color="muted">
-                                {new Date(post.date).toLocaleDateString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                })}
-                              </Text>
-                            )}
-                          </Stack>
-                          {post.summary && (
-                            <Text color="secondary" style={{ lineHeight: "1.7" }}>
-                              {post.summary}
-                            </Text>
-                          )}
-                          {post.tags && post.tags.length > 0 && (
-                            <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
-                              {post.tags.map((tag) => (
-                                <Badge key={tag} variant="default">
-                                  {tag}
-                                </Badge>
-                              ))}
-                            </Stack>
-                          )}
-                          <Link href={`/blog/${post.slug}`} className="cta-link">
-                            Read more →
-                          </Link>
-                        </Stack>
-                      </Card>
-                    ))}
-                  </Grid>
-                </Stack>
-              ))}
-          </Stack>
-        ) : (
-          <Card className="fade-in-delay-2">
-            <Stack gap={4}>
-              <Text color="secondary">No posts found.</Text>
-              {activeFilters && (
+                  All Years
+                </button>
+                {allYears.map((year) => {
+                  const isSelected = selectedYear === year;
+                  const postCount = postsByYear[year]?.length || 0;
+                  return (
+                    <button
+                      key={year}
+                      onClick={() => setSelectedYear(isSelected ? null : year)}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        padding: "0.5rem 0",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        color: isSelected
+                          ? "var(--color-interactive-default)"
+                          : "var(--color-foreground-secondary)",
+                        fontSize: "0.95rem",
+                        fontWeight: isSelected ? 600 : 400,
+                        transition: "color 0.2s ease",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span>{year}</span>
+                      <span
+                        style={{
+                          fontSize: "0.75rem",
+                          color: "var(--color-foreground-muted)",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {postCount}
+                      </span>
+                    </button>
+                  );
+                })}
+              </Stack>
+            </Stack>
+
+            {/* Tags */}
+            {allTags.length > 0 && (
+              <Stack gap={3}>
+                <Text size="xs" weight="semibold" color="muted" style={{ textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  Topics
+                </Text>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                  <button
+                    onClick={() => setSelectedTag(null)}
+                    style={{
+                      background: selectedTag === null
+                        ? "var(--color-interactive-default)"
+                        : "var(--color-background-secondary)",
+                      color: selectedTag === null
+                        ? "var(--color-background-primary)"
+                        : "var(--color-foreground-primary)",
+                      border: "1px solid var(--color-border-default)",
+                      borderRadius: "999px",
+                      padding: "0.25rem 0.75rem",
+                      fontSize: "0.875rem",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                      fontWeight: selectedTag === null ? 600 : 400,
+                    }}
+                  >
+                    All
+                  </button>
+                  {allTags.map((tag) => {
+                    const isSelected = selectedTag === tag;
+                    return (
+                      <button
+                        key={tag}
+                        onClick={() => setSelectedTag(isSelected ? null : tag)}
+                        style={{
+                          background: isSelected
+                            ? "var(--color-interactive-default)"
+                            : "var(--color-background-secondary)",
+                          color: isSelected
+                            ? "var(--color-background-primary)"
+                            : "var(--color-foreground-primary)",
+                          border: "1px solid var(--color-border-default)",
+                          borderRadius: "999px",
+                          padding: "0.25rem 0.75rem",
+                          fontSize: "0.875rem",
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                          fontWeight: isSelected ? 600 : 400,
+                        }}
+                      >
+                        {tag}
+                      </button>
+                    );
+                  })}
+                </div>
+              </Stack>
+            )}
+
+            {/* Active Filters */}
+            {activeFilters && (
+              <Stack gap={2}>
+                <Text size="xs" color="secondary">
+                  {filteredPosts.length} post{filteredPosts.length !== 1 ? "s" : ""}
+                </Text>
                 <Button
-                  variant="secondary"
+                  variant="ghost"
                   size="sm"
                   onClick={() => {
                     setSelectedTag(null);
@@ -261,11 +262,115 @@ export default function BlogIndexClient({ initialPosts }: Props) {
                 >
                   Clear filters
                 </Button>
-              )}
+              </Stack>
+            )}
+          </Stack>
+        </aside>
+
+        {/* Main Content */}
+        <div className="blog-content">
+          {hasPosts ? (
+            <Stack gap={6}>
+              {filteredPosts.map((post, index) => {
+                const date = post.date
+                  ? new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : null;
+
+                const animationClass =
+                  index < 3 ? `fade-in-delay-${Math.min(index + 1, 3)}` : "fade-in";
+
+                return (
+                  <Card
+                    key={post.slug}
+                    as="article"
+                    className={`card-hover ${animationClass}`}
+                  >
+                    <Stack gap={4}>
+                      <Stack gap={2}>
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          style={{
+                            textDecoration: "none",
+                            color: "var(--color-foreground-primary)",
+                          }}
+                        >
+                          <Text
+                            as="h2"
+                            size="2xl"
+                            weight="semibold"
+                            style={{ lineHeight: "1.2", letterSpacing: "-0.02em" }}
+                          >
+                            {post.title}
+                          </Text>
+                        </Link>
+                        {date && (
+                          <Text size="sm" color="muted">
+                            {date}
+                          </Text>
+                        )}
+                      </Stack>
+
+                      {post.summary && (
+                        <Text color="secondary" style={{ lineHeight: "1.7" }}>
+                          {post.summary}
+                        </Text>
+                      )}
+
+                      {post.tags && post.tags.length > 0 && (
+                        <Stack direction="row" gap={2} style={{ flexWrap: "wrap" }}>
+                          {post.tags.map((tag) => (
+                            <Badge key={tag} variant="default">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </Stack>
+                      )}
+
+                      <Link href={`/blog/${post.slug}`} className="cta-link">
+                        Read more →
+                      </Link>
+                    </Stack>
+                  </Card>
+                );
+              })}
             </Stack>
-          </Card>
-        )}
-      </Stack>
+          ) : (
+            <Card className="fade-in-delay-2">
+              <Stack gap={4}>
+                <Text color="secondary">No posts found.</Text>
+                {activeFilters && (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedTag(null);
+                      setSelectedYear(null);
+                    }}
+                  >
+                    Clear filters
+                  </Button>
+                )}
+              </Stack>
+            </Card>
+          )}
+        </div>
+      </div>
+
+      <style jsx>{`
+        @media (max-width: 968px) {
+          .blog-layout {
+            grid-template-columns: 1fr !important;
+            gap: 3rem !important;
+          }
+          .blog-sidebar {
+            position: static !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }

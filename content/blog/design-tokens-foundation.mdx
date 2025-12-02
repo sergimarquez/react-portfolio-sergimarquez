@@ -1,0 +1,52 @@
+---
+title: "Design Tokens: The Foundation of Scalable UI"
+date: 2025-10-17
+summary: How CSS custom properties and design tokens create maintainable, themeable design systems.
+tags: [design systems, tokens, css, architecture]
+---
+
+I used to hardcode colors, spacing, and typography values directly in components. It was fast, but changing a color meant updating 20 files. Design tokens solve this by creating a single source of truth for design decisions.
+
+## What Are Design Tokens?
+
+Design tokens are named values that represent design decisions: colors, spacing, typography, shadows, borders. They're stored as CSS custom properties (variables) and TypeScript constants.
+
+```css
+:root {
+  --color-interactive-default: #0066cc;
+  --spacing-4: 1rem;
+  --font-size-base: 1rem;
+}
+```
+
+## Why They Matter
+
+**Consistency**: Using `var(--spacing-4)` everywhere ensures spacing is consistent. If you need to adjust it, change it in one place.
+
+**Theming**: Switch themes by changing token values. Dark mode becomes trivial—just swap the token definitions.
+
+**Type safety**: Export tokens as TypeScript constants, and you get autocomplete and type checking.
+
+**Framework agnostic**: CSS custom properties work in React, Vue, vanilla JS, anywhere CSS works.
+
+## Implementation Strategy
+
+Start with the basics: colors, spacing, typography. Add shadows, borders, and animations as needed.
+
+```typescript
+// tokens.ts
+export const spacingTokens = {
+  1: "0.25rem",
+  2: "0.5rem",
+  4: "1rem",
+  // ...
+} as const;
+```
+
+Then generate CSS from these tokens, or define them directly in CSS. I prefer defining in CSS and importing TypeScript constants for JavaScript usage.
+
+## The Result
+
+A design system where changing a primary color updates the entire UI, where spacing is consistent without thinking about it, and where new developers can understand the design language by reading the tokens file.
+
+Tokens aren't just variables—they're the contract between design and code.

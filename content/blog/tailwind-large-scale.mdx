@@ -1,0 +1,53 @@
+---
+title: Why Tailwind CSS Might Be Hurting Your Large-Scale Projects
+date: 2025-10-24
+summary: When utility-first CSS becomes a liability, and what to use instead for maintainable design systems.
+tags: [css, tailwind, design systems, architecture]
+---
+
+I used to love Tailwind. Still do, for the right projects. But after maintaining a 50+ component design system with 8 developers across 3 teams, I've learned where it breaks down.
+
+## The Breaking Point
+
+It started with a simple request: "Can we make all primary buttons have 16px padding instead of 12px?"
+
+In a Tailwind codebase, that means finding every `px-3 py-2` (or `p-3`, or `px-4 py-1.5`, or any of the 12 different combinations developers used) and updating them. There's no single source of truth. No way to change it in one place.
+
+We tried enforcing patterns with ESLint rules, but developers found creative ways around them. We tried creating component classes, but then we were just writing CSS with extra steps.
+
+## The Real Problem
+
+Tailwind optimizes for writing CSS, not maintaining it. On a small project, that's perfect. On a large project, you need to optimize for change.
+
+When the design system evolves—and it always does—you need to update components, not hunt through utility classes. When you need to support dark mode or multiple themes, you need tokens, not hardcoded color values.
+
+I've seen teams try to solve this by using Tailwind's theme configuration, but then you're fighting the framework instead of using it. If you're configuring Tailwind to match your design tokens, why not just use the tokens directly?
+
+## What Actually Works
+
+I rebuilt the design system using CSS custom properties and primitive components. Here's what changed:
+
+```css
+/* One source of truth */
+:root {
+  --spacing-button-padding: 1rem;
+  --color-primary: #0066cc;
+}
+```
+
+```typescript
+// Components use tokens
+<Button style={{ padding: 'var(--spacing-button-padding)' }}>
+```
+
+Now changing button padding is one line. Adding dark mode is swapping token definitions. Theming is trivial because tokens are the foundation.
+
+## The Trade-off
+
+You lose Tailwind's speed for initial development. But you gain maintainability, which matters more on long-lived projects. You also get better TypeScript integration, framework-agnostic tokens, and a design system that actually scales.
+
+## When I Still Use Tailwind
+
+Prototypes, small projects, solo work, or teams with strong conventions and good linting. Tailwind is a great tool—just not for every problem.
+
+The question isn't "Is Tailwind good?" It's "What problem am I solving?" For large-scale design systems, tokens and primitives win every time.

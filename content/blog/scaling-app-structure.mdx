@@ -1,0 +1,54 @@
+---
+title: How To Structure Your App In a Way That Scales
+date: 2025-11-21
+summary: Practical patterns for organizing React applications that grow without becoming unmaintainable.
+tags: [architecture, react, scalability, frontend]
+---
+
+I joined a project last year where finding a component meant searching through 15 folders with names like `common`, `shared`, `utils`, and `helpers`. Each folder had 50+ files. I spent more time navigating than coding.
+
+That's when I learned: folder structure isn't about organization—it's about predictability. A new developer should be able to guess where something lives.
+
+## The Feature Folder Trap
+
+I've tried feature-based organization. It sounds great: group everything by feature, keep related code together. But then you need to share a component between features, and you create a `shared` folder. Then another. Then a `common` folder. Before you know it, you're back to the same problem.
+
+The issue? Features change. What's a feature today might be split tomorrow. Your folder structure shouldn't depend on product decisions.
+
+## What Actually Works
+
+I structure by **concern**, not by feature:
+
+```
+app/              # Routes (Next.js App Router)
+components/       # UI primitives and composites
+  primitives/     # Button, Card, Text (reusable)
+  features/       # Feature-specific compositions
+lib/              # Business logic, utilities
+styles/           # Design tokens
+content/          # MDX, static content
+```
+
+**Primitives first**: Build your design system components in `components/primitives/`. These are framework-agnostic, reusable, and well-tested. Then compose them into feature-specific components.
+
+**Business logic lives in `lib/`**: If a component has more than 50 lines of logic, extract it. Components should be thin—they render UI and call functions. The functions live in `lib/`.
+
+**One level of nesting**: Avoid `components/features/auth/components/buttons/`. If you need more than two levels, you're over-organizing.
+
+## The Rule of Three
+
+I use the "rule of three": if I use something in three places, it's worth extracting. Before that, duplication is cheaper than the wrong abstraction.
+
+I've seen teams create a `useFormatDate` hook because they used date formatting twice. Then they never use it again. The abstraction was premature.
+
+## The Test
+
+A good structure passes this test: can a new developer find `Button` without asking? Can they add a new feature without creating a new top-level folder? Can they refactor without breaking unrelated code?
+
+If the answer to all three is yes, the structure works. If not, simplify.
+
+## The Result
+
+My current project has 200+ components, and I can find any one in under 10 seconds. New developers onboard faster because the structure is predictable. Refactoring is easier because concerns are separated.
+
+Structure isn't about perfection—it's about making the codebase navigable. Start simple, extract when you have three uses, and keep nesting shallow.

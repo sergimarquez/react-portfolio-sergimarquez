@@ -1,0 +1,75 @@
+---
+title: 7 Libraries Every React Developer Should Know
+date: 2025-10-31
+summary: Essential React libraries that solve real problems without adding unnecessary complexity.
+tags: [react, libraries, tools, frontend]
+---
+
+I'm picky about dependencies. Every library adds complexity, maintenance burden, and bundle size. But these seven? I install them on every project. Here's why.
+
+## 1. React Query (TanStack Query)
+
+I used to write `useState` + `useEffect` for every API call. Then I'd add loading states, error handling, retry logic, caching... React Query does all of that, and it's battle-tested.
+
+The real win? Background refetching. Your data stays fresh without user interaction. Stale-while-revalidate caching means instant renders with background updates. It's like having a smart cache that just works.
+
+```typescript
+const { data, isLoading } = useQuery({
+  queryKey: ["user", userId],
+  queryFn: () => fetchUser(userId),
+  staleTime: 5 * 60 * 1000, // 5 minutes
+});
+```
+
+I've replaced hundreds of lines of boilerplate with this pattern.
+
+## 2. Zod
+
+TypeScript catches errors at compile time. Zod catches them at runtime. When an API response doesn't match what you expect—and it won't—Zod validates it and gives you a clear error.
+
+I use it for API responses, form validation, environment variables, and configuration. It's saved me from production bugs more times than I can count.
+
+## 3. React Hook Form
+
+Forms are annoying. React Hook Form makes them less annoying. It's performant (no re-renders on every keystroke), has great TypeScript support, and integrates with Zod for validation.
+
+The API is clean, the bundle is small, and it handles complex forms without breaking a sweat. I've built multi-step wizards, dynamic field arrays, and conditional validation—all with minimal code.
+
+## 4. date-fns
+
+I used Moment.js for years. Then I saw the bundle size. date-fns is modular (tree-shakeable), has a better API, and is actively maintained. It's become my go-to for anything date-related.
+
+## 5. clsx
+
+Tiny utility for conditional classNames. I use it everywhere:
+
+```typescript
+clsx("base-class", isActive && "active", variant === "primary" && "primary");
+```
+
+It's 200 bytes, has perfect TypeScript support, and makes dynamic styling readable. There's no reason not to use it.
+
+## 6. React Testing Library
+
+If you're testing React, you should use this. It tests behavior, not implementation. Your tests survive refactors because they test what users see, not how components work internally.
+
+I've seen too many test suites break because someone changed a component's internal structure. RTL tests don't care about that.
+
+## 7. next-mdx-remote
+
+I'm using it for this blog. MDX lets you write React components in Markdown. `next-mdx-remote` makes it easy to render MDX from any source (files, CMS, database).
+
+It's perfect for blogs, documentation, or any content-heavy site. The developer experience is great, and the output is fast.
+
+## My Filter
+
+Before adding any library, I ask:
+
+1. Does it solve a real problem I have?
+2. Is it actively maintained?
+3. What's the bundle size?
+4. Does it have good TypeScript support?
+
+If a library adds more complexity than it removes, I skip it. These seven pass that test every time.
+
+What's in your essential stack?

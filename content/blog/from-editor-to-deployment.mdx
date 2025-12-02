@@ -1,0 +1,34 @@
+---
+title: "From Editor to Deployment: Building a Front-End Quality Pipeline"
+date: 2025-11-28
+summary: How I set up automated quality checks that catch issues before they reach production, without slowing down development.
+tags: [ci/cd, quality, automation, frontend]
+---
+
+Last year, I joined a project where the build was failing in production. Not because of bugs—because someone used a semicolon instead of a comma in a TypeScript type. The entire deployment pipeline halted, and we spent 20 minutes tracking down a syntax error that should have been caught before it left someone's editor.
+
+That's when I decided: quality checks shouldn't be optional. They should be invisible until something's wrong.
+
+## The Three-Layer Defense
+
+I've built this pipeline across multiple projects, and it always follows the same pattern:
+
+**Pre-commit hooks** run in under 2 seconds. Husky + lint-staged auto-fix what they can (formatting, simple lint rules) and block commits that would break the build. The key is speed—if it takes longer than a coffee sip, developers will find ways around it.
+
+**CI gates** are the real gatekeepers. Every PR runs type checking, linting, tests, and a production build. No exceptions. I've seen teams try to "skip CI for this one," and it always ends badly. The rule is simple: if CI fails, the PR doesn't merge.
+
+**Pre-build checks** are the safety net. Even if something slips through, the production build will catch it. This is where I enforce strict TypeScript settings—no `any`, no implicit returns, strict null checks. It's annoying at first, but it prevents entire classes of bugs.
+
+## The Real Test
+
+The pipeline works when developers don't notice it. When a new team member commits code and the hooks just work. When a PR fails CI and the error message is clear enough that they can fix it without asking for help.
+
+I measure success by how rarely I think about the pipeline. If I'm constantly debugging lint rules or fixing CI failures, the pipeline is the problem, not the solution.
+
+## What I've Learned
+
+Fast checks > comprehensive checks. A 2-second lint that catches 80% of issues is better than a 30-second lint that catches 95%. Developers will wait for the first one. They'll skip the second.
+
+Also, auto-fix everything possible. If Prettier can fix it, don't make a human do it. If ESLint can auto-fix, configure it to do so. The goal isn't to catch every mistake—it's to prevent mistakes from becoming problems.
+
+The result? I haven't seen a production build fail due to a type error or lint violation in over a year. The pipeline just works, and that's exactly how it should be.
