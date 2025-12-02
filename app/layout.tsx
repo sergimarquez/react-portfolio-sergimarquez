@@ -11,9 +11,27 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Sergi Marquez — Frontend Engineer",
+  title: {
+    default: "Sergi Marquez — Frontend Engineer",
+    template: "%s | Sergi Marquez",
+  },
   description:
     "Frontend architect and engineer building scalable, maintainable frontend architectures. Specialized in React, Next.js, TypeScript, design systems, and engineering leadership.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://sergimarquez.com",
+    siteName: "Sergi Marquez",
+    title: "Sergi Marquez — Frontend Engineer",
+    description:
+      "Frontend architect and engineer building scalable, maintainable frontend architectures.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sergi Marquez — Frontend Engineer",
+    description:
+      "Frontend architect and engineer building scalable, maintainable frontend architectures.",
+  },
 };
 
 export default function RootLayout({
