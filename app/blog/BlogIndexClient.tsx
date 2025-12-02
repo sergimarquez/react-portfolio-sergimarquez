@@ -121,7 +121,7 @@ export default function BlogIndexClient({ initialPosts }: Props) {
                 Blog
               </Text>
               <Text size="sm" color="secondary" style={{ lineHeight: "1.5" }}>
-                Thoughts on frontend architecture, design systems, and engineering leadership.
+                Lessons learned building scalable frontend architectures.
               </Text>
             </Stack>
 
