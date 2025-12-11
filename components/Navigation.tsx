@@ -72,24 +72,6 @@ export default function Navigation() {
             Projects
           </Link>
           <Link
-            href="/blog"
-            style={{
-              textDecoration: "none",
-              color: "var(--color-foreground-primary)",
-              fontSize: "0.95rem",
-              fontWeight: 500,
-              transition: "color 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "var(--color-interactive-default)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = "var(--color-foreground-primary)";
-            }}
-          >
-            Blog
-          </Link>
-          <Link
             href="/#contact"
             style={{
               textDecoration: "none",
@@ -149,9 +131,6 @@ export default function Navigation() {
         >
           <Link href="/#projects" onClick={() => setIsOpen(false)}>
             <Text>Projects</Text>
-          </Link>
-          <Link href="/blog" onClick={() => setIsOpen(false)}>
-            <Text>Blog</Text>
           </Link>
           <Link href="/#contact" onClick={() => setIsOpen(false)}>
             <Text>Contact</Text>

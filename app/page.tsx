@@ -117,11 +117,6 @@ export default function Home() {
                   View Projects
                 </Button>
               </Link>
-              <Link href="/blog">
-                <Button variant="secondary" size="lg">
-                  Read Blog
-                </Button>
-              </Link>
             </Stack>
           </Stack>
         </Stack>
