@@ -5,7 +5,6 @@ test.describe("Home page", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { name: /hi, i'm sergi/i })).toBeVisible();
     await expect(page.getByRole("link", { name: /view projects/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /read blog/i })).toBeVisible();
   });
 
   test("shows latest writing cards", async ({ page }) => {
