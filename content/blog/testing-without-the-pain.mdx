@@ -1,0 +1,50 @@
+---
+title: "Testing Without the Pain: A Practical Approach"
+date: 2025-12-05
+summary: How I write tests that actually help me ship faster, without turning testing into a chore.
+tags: [testing, jest, quality, frontend]
+---
+
+I used to hate writing tests. Not because I didn't see the value—because every test felt like a chore. I'd write a test, it would break on the next refactor, and I'd spend 20 minutes fixing something that should have taken 2.
+
+Then I realized: I was testing the wrong things.
+
+## What Not to Test
+
+I don't test implementation details. If I change how a component renders internally, the test shouldn't break. I test behavior: does clicking this button do what the user expects? Does this form show an error when validation fails?
+
+I also don't test third-party libraries. If I'm using React Router, I don't test that `useNavigate` works. I mock it and test that my code calls it correctly.
+
+And I definitely don't test CSS. I've seen teams write tests that verify `margin-top: 16px`. That's not a bug—that's a design decision.
+
+## What I Actually Test
+
+**User interactions**: Can someone click a button and see the expected result? Can they fill out a form and submit it? These are the things that matter.
+
+**Edge cases**: What happens when the API returns an error? What if the user is offline? What if the data is malformed? These are the bugs that slip into production.
+
+**Business logic**: If I have a function that calculates a discount, I test that. If I have a function that formats a date, I test that. These are the things that are easy to get wrong and hard to debug.
+
+## The Testing Pyramid
+
+I follow a simple rule: lots of unit tests for logic, a few integration tests for components, and minimal e2e tests for critical paths.
+
+Unit tests are fast. I can run 200 in 2 seconds. They catch bugs early, and they're easy to write. I write these for utility functions, hooks, and pure components.
+
+Integration tests are slower but catch real bugs. I write these for complex components that have multiple interactions. I use React Testing Library because it tests what users see, not implementation details.
+
+E2e tests are slow and flaky, so I only write them for the most important flows: can someone sign up? Can they complete a purchase? These are the things that would be catastrophic if they broke.
+
+## The Real Test
+
+A good test suite is one I actually run. If tests take 5 minutes, I'll skip them. If they're flaky, I'll ignore failures. If they're hard to write, I won't write them.
+
+I measure success by how often tests catch bugs before they reach production. If I'm constantly fixing test failures that don't matter, the tests are wrong.
+
+## What I've Learned
+
+Fast tests > comprehensive tests. I'd rather have 100 fast tests that catch 80% of bugs than 50 slow tests that catch 95%. Speed matters because it means I'll actually run them.
+
+Also, test behavior, not implementation. If I refactor a component and 10 tests break, those tests are testing the wrong thing. They should test what the component does, not how it does it.
+
+The result? I actually enjoy writing tests now. They're fast, they catch real bugs, and they give me confidence to refactor. That's exactly how it should be.
