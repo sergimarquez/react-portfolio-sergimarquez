@@ -28,7 +28,7 @@ const projectCards: ProjectCard[] = [
     image: { src: "/projects/design-system.png", alt: "Screenshot of Design System Storybook" },
     tags: ["React", "TypeScript", "Storybook", "Accessibility"],
     liveUrl:
-      "https://design-system-c8tq69gah-sergis-projects-2dc6d14d.vercel.app/?path=/story/welcome--welcome",
+      "https://design-system-git-main-sergis-projects-2dc6d14d.vercel.app/?path=/story/welcome--welcome",
     repoUrl: "https://github.com/sergimarquez/design-system",
   },
   {
