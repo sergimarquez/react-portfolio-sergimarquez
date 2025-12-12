@@ -21,14 +21,14 @@ const projectCards: ProjectCard[] = [
     tags: ["Next.js", "TypeScript", "Firebase", "Tailwind CSS"],
     liveUrl: "https://fintreo.com",
   },
-    {
+  {
     title: "Design System",
     description:
       "A reusable component library with accessible React primitives and design tokens. Makes it easy to build consistent, flexible UIs across projects.",
     image: { src: "/projects/design-system.png", alt: "Screenshot of Design System Storybook" },
     tags: ["React", "TypeScript", "Storybook", "Accessibility"],
     liveUrl:
-      "https://design-system-git-main-sergis-projects-2dc6d14d.vercel.app/?path=/story/welcome--welcome",
+      "https://design-system-sooty.vercel.app/?path=/docs/welcome--docs",
     repoUrl: "https://github.com/sergimarquez/design-system",
   },
   {
