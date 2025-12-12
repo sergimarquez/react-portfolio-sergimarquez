@@ -16,35 +16,34 @@ const projectCards: ProjectCard[] = [
   {
     title: "Fintreo",
     description:
-      "Modern personal finance app with real-time sync, privacy-first architecture, and performance budgets under 100KB for the initial payload.",
+      "A personal finance app with real-time sync and secure authentication. Built with a modular, type-safe architecture and responsive UI.",
     image: { src: "/projects/fintreo.png", alt: "Screenshot of Fintreo app" },
-    tags: ["Next.js", "TypeScript", "Firebase", "Performance"],
+    tags: ["Next.js", "TypeScript", "Firebase", "Tailwind CSS"],
     liveUrl: "https://fintreo.com",
+  },
+    {
+    title: "Design System",
+    description:
+      "A reusable component library with accessible React primitives and design tokens. Makes it easy to build consistent, flexible UIs across projects.",
+    image: { src: "/projects/design-system.png", alt: "Screenshot of Design System Storybook" },
+    tags: ["React", "TypeScript", "Storybook", "Accessibility"],
+    liveUrl:
+      "https://design-system-c8tq69gah-sergis-projects-2dc6d14d.vercel.app/?path=/story/welcome--welcome",
+    repoUrl: "https://github.com/sergimarquez/design-system",
   },
   {
     title: "3Good",
     description:
-      "Daily gratitude tracker focused on wellbeing and privacy. Built with Vite and modern React patterns to keep interactions instant on any device.",
+      "A privacy-first app for daily gratitude. Record three things you’re grateful for, track your streaks, and reflect on your progress with a simple, distraction-free interface.",
     image: { src: "/projects/3good.png", alt: "Screenshot of 3Good app" },
     tags: ["React", "TypeScript", "Vite", "Privacy"],
     liveUrl: "https://3good.app/",
     repoUrl: "https://github.com/sergimarquez/three-things",
   },
   {
-    title: "Design System",
-    description:
-      "Modern design system built with React and TypeScript. Framework-agnostic tokens and headless components for building consistent, accessible UIs across projects.",
-    image: { src: "/projects/design-system.png", alt: "Screenshot of Design System Storybook" },
-    tags: ["React", "TypeScript", "Storybook", "Vite", "Accessibility"],
-    liveUrl:
-      "https://design-system-c8tq69gah-sergis-projects-2dc6d14d.vercel.app/?path=/story/welcome--welcome",
-    repoUrl: "https://github.com/sergimarquez/design-system",
-  },
-  // Bottom row (2 centered columns)
-  {
     title: "SiteBlockr",
     description:
-      "Chrome extension with privacy-focused controls, optimized Chrome API usage, and strict type safety to keep memory and CPU impact minimal.",
+      "A Chrome extension for privacy-conscious browsing. Lets users control site access while keeping memory and CPU usage minimal.",
     image: { src: "/projects/siteblockr.png", alt: "Screenshot of SiteBlockr extension" },
     tags: ["Chrome APIs", "TypeScript", "Privacy", "Performance"],
     liveUrl:
@@ -54,9 +53,9 @@ const projectCards: ProjectCard[] = [
   {
     title: "Retro Portfolio",
     description:
-      "A nostalgic portfolio website with retro aesthetics, showcasing projects with a vintage computing feel and modern web technologies.",
+      "My old portfolio reimagined with retro aesthetics, built using pure HTML, CSS, BEM, and JavaScript. Showcases past projects.",
     image: { src: "/projects/retro-portfolio.png", alt: "Screenshot of Retro Portfolio website" },
-    tags: ["Next.js", "TypeScript", "Design"],
+    tags: ["HTML", "CSS", "JavaScript", "BEM"],
     liveUrl: "https://sergimarquez.dev",
     repoUrl: "https://github.com/sergimarquez/retro-portfolio",
   },
