@@ -27,8 +27,7 @@ const projectCards: ProjectCard[] = [
       "A reusable component library with accessible React primitives and design tokens. Makes it easy to build consistent, flexible UIs across projects.",
     image: { src: "/projects/design-system.png", alt: "Screenshot of Design System Storybook" },
     tags: ["React", "TypeScript", "Storybook", "Accessibility"],
-    liveUrl:
-      "https://design-system-sooty.vercel.app/?path=/story/welcome--welcome",
+    liveUrl: "https://design-system-sooty.vercel.app/?path=/story/welcome--welcome",
     repoUrl: "https://github.com/sergimarquez/design-system",
   },
   {

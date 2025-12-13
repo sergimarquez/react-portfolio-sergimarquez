@@ -125,6 +125,63 @@ export default function BlogIndexClient({ initialPosts }: Props) {
               </Text>
             </Stack>
 
+            {/* Tags */}
+            {allTags.length > 0 && (
+              <Stack gap={3}>
+                <Text size="xs" weight="semibold" color="muted" style={{ textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  Topics
+                </Text>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                  <button
+                    onClick={() => setSelectedTag(null)}
+                    style={{
+                      background: selectedTag === null
+                        ? "var(--color-interactive-default)"
+                        : "var(--color-background-secondary)",
+                      color: selectedTag === null
+                        ? "var(--color-background-primary)"
+                        : "var(--color-foreground-primary)",
+                      border: "1px solid var(--color-border-default)",
+                      borderRadius: "999px",
+                      padding: "0.25rem 0.75rem",
+                      fontSize: "0.875rem",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                      fontWeight: selectedTag === null ? 600 : 400,
+                    }}
+                  >
+                    All
+                  </button>
+                  {allTags.map((tag) => {
+                    const isSelected = selectedTag === tag;
+                    return (
+                      <button
+                        key={tag}
+                        onClick={() => setSelectedTag(isSelected ? null : tag)}
+                        style={{
+                          background: isSelected
+                            ? "var(--color-interactive-default)"
+                            : "var(--color-background-secondary)",
+                          color: isSelected
+                            ? "var(--color-background-primary)"
+                            : "var(--color-foreground-primary)",
+                          border: "1px solid var(--color-border-default)",
+                          borderRadius: "999px",
+                          padding: "0.25rem 0.75rem",
+                          fontSize: "0.875rem",
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                          fontWeight: isSelected ? 600 : 400,
+                        }}
+                      >
+                        {tag}
+                      </button>
+                    );
+                  })}
+                </div>
+              </Stack>
+            )}
+
             {/* Years Timeline */}
             <Stack gap={3}>
               <Text size="xs" weight="semibold" color="muted" style={{ textTransform: "uppercase", letterSpacing: "0.05em" }}>
@@ -189,63 +246,6 @@ export default function BlogIndexClient({ initialPosts }: Props) {
               </Stack>
             </Stack>
 
-            {/* Tags */}
-            {allTags.length > 0 && (
-              <Stack gap={3}>
-                <Text size="xs" weight="semibold" color="muted" style={{ textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                  Topics
-                </Text>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                  <button
-                    onClick={() => setSelectedTag(null)}
-                    style={{
-                      background: selectedTag === null
-                        ? "var(--color-interactive-default)"
-                        : "var(--color-background-secondary)",
-                      color: selectedTag === null
-                        ? "var(--color-background-primary)"
-                        : "var(--color-foreground-primary)",
-                      border: "1px solid var(--color-border-default)",
-                      borderRadius: "999px",
-                      padding: "0.25rem 0.75rem",
-                      fontSize: "0.875rem",
-                      cursor: "pointer",
-                      transition: "all 0.2s ease",
-                      fontWeight: selectedTag === null ? 600 : 400,
-                    }}
-                  >
-                    All
-                  </button>
-                  {allTags.map((tag) => {
-                    const isSelected = selectedTag === tag;
-                    return (
-                      <button
-                        key={tag}
-                        onClick={() => setSelectedTag(isSelected ? null : tag)}
-                        style={{
-                          background: isSelected
-                            ? "var(--color-interactive-default)"
-                            : "var(--color-background-secondary)",
-                          color: isSelected
-                            ? "var(--color-background-primary)"
-                            : "var(--color-foreground-primary)",
-                          border: "1px solid var(--color-border-default)",
-                          borderRadius: "999px",
-                          padding: "0.25rem 0.75rem",
-                          fontSize: "0.875rem",
-                          cursor: "pointer",
-                          transition: "all 0.2s ease",
-                          fontWeight: isSelected ? 600 : 400,
-                        }}
-                      >
-                        {tag}
-                      </button>
-                    );
-                  })}
-                </div>
-              </Stack>
-            )}
-
             {/* Active Filters */}
             {activeFilters && (
               <Stack gap={2}>
@@ -302,7 +302,7 @@ export default function BlogIndexClient({ initialPosts }: Props) {
                             as="h2"
                             size="2xl"
                             weight="semibold"
-                            style={{ lineHeight: "1.2", letterSpacing: "-0.02em" }}
+                            style={{ lineHeight: "1.2", letterSpacing: "-0.02em", marginTop: 0 }}
                           >
                             {post.title}
                           </Text>

@@ -1,0 +1,86 @@
+---
+title: "When Micro-Frontends Make Sense (And When They Don't)"
+date: 2025-12-12
+summary: Exploring the promise and the hidden costs of micro-frontends.
+tags: [architecture]
+---
+
+Micro-frontends are one of those ideas that sound obviously correct the first time you hear them.
+Independent teams. Independent deployments.
+
+Frontend projects get messy over time, and the idea of splitting things up feels like a natural solution.
+
+But I've kept wondering whether this is always the right approach — or if we're just turning one technical problem into a bigger one.
+
+## When Micro-Frontends Actually Make Sense
+
+Micro-frontends start to make sense when teams aren't blocked by code, but by each other.
+
+You usually see this when you have:
+
+- Multiple teams shipping at different speeds
+- Frequent release conflicts
+- A frontend that's been around long enough to split into clearly different product areas
+
+In those cases, micro-frontends aren't really about cleaner architecture.
+They're about reducing friction between teams.
+
+More than a technical optimization, they're a coordination strategy.
+
+They let teams:
+
+- Own features end-to-end
+- Deploy without waiting on others
+- Move independently without stepping on shared code
+
+If your backend is already built around microservices and your frontend has become the thing slowing releases down, micro-frontends can help relieve some of that pressure.
+
+## When They Probably Don't
+
+Micro-frontends are a terrible solution to code cleanliness.
+
+If the problem is:
+
+- A messy codebase
+- Poor boundaries
+- A giant global state
+- Slow builds
+
+Then micro-frontends will not save the project.
+They will just distribute the mess across more repositories and pipelines.
+
+For small teams, early-stage products, or apps that still change shape weekly, micro-frontends are usually overkill.
+
+A well-designed modular monolith will give you 80% of the benefits with 20% of the complexity.
+
+## The Hidden Cost
+
+Micro-frontends trade simplicity for autonomy.
+
+You gain:
+
+- Independent deployments
+- Clear ownership
+
+You pay with:
+
+- More infrastructure
+- Harder debugging
+- Runtime failures
+- Coordination through contracts instead of code
+
+This is a good trade — but only when independence is more valuable than simplicity.
+
+## Conclusion
+
+If teams keep stepping on each other's toes, micro-frontends might help.
+If the codebase itself is the thing causing pain, they probably won't.
+
+I like the idea behind micro-frontends — using technical boundaries to reduce human friction. But if teams struggle to coordinate in a monorepo, it's hard to believe that splitting everything apart will suddenly fix that.
+
+Micro-frontends are also costly. Not just in infrastructure, but in time, coordination, and ongoing maintenance. Someone has to own the shell, the contracts, and the shared decisions.
+
+Before reaching for micro-frontends, I'd try better code organization, feature flags, or a monorepo with clear boundaries.
+
+I tend to prefer simplicity. If you genuinely need micro-frontends, it usually becomes obvious at the organizational level.
+I wouldn't start there.
