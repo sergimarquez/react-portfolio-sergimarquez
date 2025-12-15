@@ -1,0 +1,71 @@
+---
+title: Semantic HTML Is an Architectural Decision
+date: 2025-01-10
+summary: Why choosing the right HTML element affects your entire architecture.
+tags: [principles, architecture]
+---
+
+I see semantic HTML treated as an afterthought in most projects.
+
+We know it helps SEO, accessibility, and code maintainability.
+But we treat it as "nice to have," not critical.
+
+Then you realize your apps are scoring very poorly on SEO and accessibility. Fixing it means reworking entire design systems or components.
+
+That's when semantic HTML becomes an architectural concern.
+
+## A Simple Example
+
+A common mistake I see is using divs as buttons for styling reasons:
+
+```html
+<div onclick="save()">Save</div>
+```
+
+At first glance, it works. Looks fine.
+
+But when you use a `<div>` instead, you're ditching some built-in behavior and taking on all that responsibility yourself.
+
+And now every place that follows this pattern has to do the same.
+
+When you write this instead:
+
+```html
+<button>Save</button>
+```
+
+You're not just choosing an element.
+You're saying: **this is interactive, it can receive focus, it works with a keyboard, and assistive technologies know what it is.**
+
+## Why Semantic HTML Matters at Scale
+
+In small apps, this doesn't feel like a big deal.
+
+In larger systems, the pattern repeats. One component copies another. A design system or component library is built that way.
+
+I've seen design systems where the Button component was built on a `<div>`. Now every button across 200+ components needs to be refactored. Suddenly, entire pages inherit low accessibility and SEO issues.
+
+All of a sudden, you find yourself rewriting components, updating interactions, and fixing accessibility across dozens of places — far more costly than doing it right from the start.
+
+## Semantic HTML Is More Than Markup
+
+We have to think about semantic HTML as a tool for good architecture.
+
+The good thing about HTML is that it provides a lot of constraints and features by default.
+
+A `<button>` will always behave like a button.
+A clickable `<div>` can forget everything.
+
+I've worked on components where someone used a `<div>` for a clickable card. Later, we needed keyboard navigation. Then focus management. Then proper ARIA roles. Each feature required more JavaScript and more complexity.
+
+If they'd used `<article>` or `<section>` from the start, the browser would have handled most of it.
+
+When we choose elements that prevent entire classes of bugs, this good pattern propagates, and our app becomes more reliable and scalable.
+
+## Takeaway
+
+Semantic HTML should be more than just an afterthought.
+
+It should act like **the skeleton of your app**, forming the foundation on which everything else is built.
+
+Not just for accessibility, SEO, or maintainability — but as a tool to build scalable, reliable front-end architectures.
