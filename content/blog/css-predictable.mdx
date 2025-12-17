@@ -1,0 +1,55 @@
+---
+title: Make your CSS predictable, not specific
+date: 2025-12-17
+summary: Predictability beats specificity when writing CSS.
+tags: [css, architecture, principles]
+---
+
+As a front-end developer, one of the first lessons you learn is how to calculate and handle CSS specificity.
+At first, styling with specificity feels logical and clean—until you start working on a large project and discover the dreaded specificity wars.
+
+You end up adding !important, nesting inside already enormous selectors, and fighting the DevTools just to figure out where a simple color is coming from. Eventually, you might even give up on the CSS architecture altogether, because refactoring feels impossible.
+
+I wish every lesson about specificity came with a side note: **avoid it whenever you can.**
+
+**Make your CSS predictable, not specific.**
+
+By predictable, I mean this: when you write CSS to make a button blue, it should be blue everywhere it's used. You shouldn't be surprised by where it works—or doesn't—and you shouldn't need to override it just to get the expected result.
+
+```css
+/* ❌ specific, contextual */
+.page .card button.primary {
+  background: blue;
+}
+
+.modal .card button.primary {
+  background: red;
+}
+
+/* ✅ predictable, explicit */
+.button {
+  background: var(--color-primary);
+}
+
+.button--secondary {
+  background: var(--color-secondary);
+}
+```
+
+With modern CSS, we have plenty of tools and patterns available to make our styles predictable instead of fragile.
+
+A few simple strategies go a long way:
+
+- Keep selectors simple
+- Avoid contextual overrides
+- Aim for class-only selectors
+- Minimise nesting
+- Use explicit variants instead of overrides
+
+Predictable CSS comes from low, consistent selectors, composition over context, minimal nesting, and explicit variants. Use specificity rarely and intentionally.
+
+The goal isn't zero specificity. Specificity is useful—but only when it's intentional and when it's needed.
+
+When writing CSS, you shouldn't be asking, "How do I override this?"
+
+You should be asking, "Why doesn't my input produce the expected result?"
