@@ -317,8 +317,7 @@ export default function Home() {
         </Stack>
       </section>
 
-      {/* Skills Section – Option A only */}
-      <section id="skills-option-a" style={{ marginBottom: "6rem" }}>
+      <section id="skills" style={{ marginBottom: "6rem" }}>
         <Stack gap={6}>
           <h2 className="section-title fade-in">Technical Expertise </h2>
           <div
