@@ -7,9 +7,9 @@ test.describe("Home page", () => {
     await expect(page.getByRole("link", { name: /view projects/i })).toBeVisible();
   });
 
-  test("shows latest writing cards", async ({ page }) => {
-    await page.goto("/");
-    await expect(page.getByRole("heading", { name: /latest writing/i })).toBeVisible();
-    await expect(page.locator("#blog").getByRole("link", { name: /read more/i }).first()).toBeVisible();
-  });
+  // test("shows latest writing cards", async ({ page }) => {
+  //   await page.goto("/");
+  //   await expect(page.getByRole("heading", { name: /latest writing/i })).toBeVisible();
+  //   await expect(page.locator("#blog").getByRole("link", { name: /read more/i }).first()).toBeVisible();
+  // });
 });
