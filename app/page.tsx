@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Text, Button, Card, Stack, Grid, Link, Badge } from "@/components/primitives";
-import { getBlogSlugs, readBlogSource } from "@/lib/blog";
+// import { getBlogSlugs, readBlogSource } from "@/lib/blog";
 
 type ProjectCard = {
   title: string;
@@ -60,26 +60,26 @@ const projectCards: ProjectCard[] = [
   },
 ];
 
-function getLatestPosts(limit = 2) {
-  const slugs = getBlogSlugs();
-  const posts = slugs.map((slug) => {
-    const { meta } = readBlogSource(slug);
-    const dateStr = typeof meta.date === "string" ? meta.date : String(meta.date ?? "");
-    return {
-      slug,
-      title: meta.title ?? slug,
-      date: dateStr,
-      summary: meta.summary ?? "",
-      tags: meta.tags ?? [],
-    };
-  });
+// function getLatestPosts(limit = 2) {
+//   const slugs = getBlogSlugs();
+//   const posts = slugs.map((slug) => {
+//     const { meta } = readBlogSource(slug);
+//     const dateStr = typeof meta.date === "string" ? meta.date : String(meta.date ?? "");
+//     return {
+//       slug,
+//       title: meta.title ?? slug,
+//       date: dateStr,
+//       summary: meta.summary ?? "",
+//       tags: meta.tags ?? [],
+//     };
+//   });
 
-  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  return posts.slice(0, limit);
-}
+//   posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+//   return posts.slice(0, limit);
+// }
 
 export default function Home() {
-  const latestPosts = getLatestPosts();
+  // const latestPosts = getLatestPosts();
 
   return (
     <main style={{ maxWidth: "1200px", width: "90%", margin: "0 auto", padding: "4rem 1rem" }}>
@@ -396,8 +396,8 @@ export default function Home() {
         </Stack>
       </section>
 
-      {/* Blog Section */}
-      <section id="blog" style={{ marginBottom: "10rem" }}>
+      {/* Blog Section - Hidden until more writings are done */}
+      {/* <section id="blog" style={{ marginBottom: "10rem" }}>
         <Stack gap={6}>
           <h2 className="section-title fade-in">Latest Writing</h2>
           {latestPosts.length > 0 ? (
@@ -453,14 +453,14 @@ export default function Home() {
             </Grid>
           ) : (
             <Card className="card-hover fade-in-delay-1">
-              <Text color="secondary">I’ll be publishing my first blog post soon. Stay tuned!</Text>
+              <Text color="secondary">I'll be publishing my first blog post soon. Stay tuned!</Text>
             </Card>
           )}
           <Link href="/blog" className="cta-link">
             View all posts →
           </Link>
         </Stack>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section id="contact" style={{ marginBottom: "8rem" }}>
