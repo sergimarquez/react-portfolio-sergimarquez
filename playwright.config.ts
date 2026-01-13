@@ -6,9 +6,13 @@ export default defineConfig({
   timeout: 60_000,
   fullyParallel: true,
   webServer: {
-    command: "npm run dev",
+    // In CI, test against production build to catch production-specific issues
+    // Locally, use dev server for faster iteration
+    command: process.env.CI ? "npm run start" : "npm run dev",
     port: 3000,
     reuseExistingServer: !process.env.CI,
+    // Give production server more time to start
+    timeout: process.env.CI ? 120_000 : 60_000,
   },
   use: {
     baseURL: "http://localhost:3000",
