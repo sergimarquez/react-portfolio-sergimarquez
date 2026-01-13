@@ -83,11 +83,17 @@ test.describe("Home page", () => {
         failedImages.push(src || `image-${i}`);
       }
       
-      // If it's a Next.js optimized image, verify the URL structure and accessibility
+      // Verify image source is valid (either direct path or optimized endpoint)
       if (src?.includes("/_next/image")) {
         // Check for projects in the URL (could be encoded as %2Fprojects%2F)
         expect(src).toMatch(/projects/i);
         // Verify the image optimization endpoint is accessible
+        const response = await page.request.get(src);
+        expect(response.status()).toBe(200);
+      } else if (src?.startsWith("/projects/")) {
+        // Direct image path (unoptimized mode)
+        expect(src).toMatch(/\.(png|jpg|jpeg|webp|avif)$/i);
+        // Verify the image is accessible
         const response = await page.request.get(src);
         expect(response.status()).toBe(200);
       }
