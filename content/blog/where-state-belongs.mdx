@@ -1,0 +1,63 @@
+---
+title: Where State Actually Belongs in a React App
+date: 2026-01-13
+summary: Most state problems in React aren't caused by libraries, but by putting state in the wrong place.
+tags: [react, architecture, principles]
+---
+
+State management is one of the first things people want to "solve" in React.
+
+Local state feels limited.  
+Global state feels scalable.
+
+So state gets lifted early, shared widely, and centralized long before the UI actually needs it.
+
+That usually works — until the app grows.
+
+## Keep State Local for as Long as Possible
+
+Local state is often treated as something you grow out of.
+
+In practice, it's the easiest state to reason about and the safest to change. It's naturally scoped, easy to delete, and doesn't introduce hidden dependencies.
+
+If a piece of state only affects a single component, keeping it local is not a shortcut. It's the correct architectural choice.
+
+Most state never needs to be reused. Lifting it "just in case" usually creates coupling without providing any real benefit.
+
+## Lift State When the UI Forces You To
+
+State should move upward only when multiple parts of the UI genuinely need to coordinate.
+
+This usually happens when:
+
+- Sibling components depend on the same behavior
+- A parent needs to orchestrate interactions
+- State changes must be reflected in more than one place
+
+At that point, lifting state isn't about reuse. It's about ownership.
+
+The important question becomes: which component is responsible for this behavior? Not which one happens to need the data.
+
+## Global State Is a Trade-Off, Not a Default
+
+Global state is powerful, but it comes with real costs.
+
+It makes dependencies harder to track, increases the blast radius of changes, and complicates debugging. None of that makes it wrong — it just makes it something you introduce deliberately.
+
+Global state makes sense when:
+
+- Many distant parts of the app depend on it
+- It represents long-lived application concepts
+- The cost of duplication is higher than the cost of coupling
+
+If most of your global state is UI-related, it's usually a sign that state was lifted too early.
+
+## Conclusion
+
+State management problems in React are rarely about choosing the right library.
+
+They're about putting state in places that don't match how the UI actually behaves.
+
+I tend to start local, lift only when coordination is required, and introduce global state when the benefits clearly outweigh the costs.
+
+If state placement feels unclear, that's often a sign the component boundaries need work — not that you need another state solution.
