@@ -1,0 +1,40 @@
+---
+title: How I Split a React App Without Creating a Mess
+date: 2026-01-13
+summary: Organizing a growing React app isn't about folders — it's about boundaries and ownership.
+tags: [react, architecture, clean code]
+---
+
+As apps grow, import paths get messy and components bleed across features.
+
+The instinct is to reorganize folders constantly. But without clear boundaries, folder structure alone won't save you.
+
+## Organize by Feature, Not Type
+
+I organize components, hooks, and utilities around **features** instead of by type.
+
+Each feature folder contains:
+
+- UI components
+- State and hooks
+- Tests
+- Public API for other features
+
+This reduces cross-feature imports and makes boundaries explicit.
+
+## Define Public APIs per Feature
+
+A feature should expose only what other features actually need.
+
+Internal components, hooks, or helpers stay private.  
+Other features interact through a clear, stable interface.
+
+This prevents accidental coupling and keeps your app maintainable as it grows.
+
+## Conclusion
+
+Splitting a React app isn't about creating tiny folders or blindly following architecture patterns.
+
+It's about **clear ownership and enforced boundaries**. Organize by feature, keep internal details private, and expose only what truly matters.
+
+When your app is structured this way, scaling becomes manageable — without constantly rearranging everything.
