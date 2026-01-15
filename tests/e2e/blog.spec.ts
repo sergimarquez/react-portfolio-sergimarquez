@@ -18,12 +18,39 @@ test.describe("Blog page", () => {
     const initialCount = await cards(page).count();
     expect(initialCount).toBeGreaterThan(1);
 
-    // Filter by year 2025 (all current posts are from 2025)
-    const year2025Button = yearButton(page, "2025");
-    await expect(year2025Button).toBeVisible();
-    await year2025Button.click();
-    // Should show all posts (they're all from 2025)
-    await expect(cards(page)).toHaveCount(initialCount);
+    // Get available years from the sidebar timeline section
+    // Year buttons show format like "2025 1" or "2026 2" (year and count)
+    // We need to find buttons that contain a 4-digit year
+    const timelineSection = page.locator("aside").getByText("Timeline").locator("..");
+    const yearButtons = timelineSection.getByRole("button");
+    const yearButtonCount = await yearButtons.count();
+    expect(yearButtonCount).toBeGreaterThan(1); // At least "All Years" + one year button
+
+    // Find the first year button (skip "All Years" which is first)
+    let firstYear: string | null = null;
+    for (let i = 1; i < yearButtonCount; i++) {
+      const button = yearButtons.nth(i);
+      const text = await button.textContent();
+      if (text) {
+        const match = text.trim().match(/^(\d{4})/);
+        if (match) {
+          firstYear = match[1];
+          break;
+        }
+      }
+    }
+
+    expect(firstYear).toBeTruthy();
+    
+    // Filter by the first available year
+    const yearBtn = yearButton(page, firstYear!);
+    await expect(yearBtn).toBeVisible();
+    await yearBtn.click();
+    
+    // Should show posts from that year (count should be less than or equal to initial)
+    const filteredByYearCount = await cards(page).count();
+    expect(filteredByYearCount).toBeGreaterThan(0);
+    expect(filteredByYearCount).toBeLessThanOrEqual(initialCount);
 
     // Clear year filter
     await yearButton(page, "All Years").click();
