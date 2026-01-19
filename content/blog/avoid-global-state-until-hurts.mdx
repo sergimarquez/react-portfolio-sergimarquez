@@ -1,0 +1,58 @@
+---
+title: Why I Avoid Global State Until It Hurts
+date: 2026-01-13
+summary: Global state is powerful, but introducing it too early usually creates more problems than it solves.
+tags: [react, architecture, principles]
+---
+
+Global state often feels like the "proper" solution.
+
+It's shared, centralized, and easy to access from anywhere. So it's tempting to move state there early, before the app clearly needs it.
+
+That works at first — until everything starts depending on everything else.
+
+## Global State Increases Coupling
+
+Once state is global, any part of the app can depend on it.
+
+This makes components harder to reason about and changes harder to contain. A small update can trigger re-renders or side effects in places that feel completely unrelated.
+
+Over time, global state becomes an implicit contract between parts of the app that were never meant to be coupled.
+
+Global state doesn't just share data — it shares responsibility.
+
+## Most UI State Is Not Global
+
+Things like:
+
+- Modals
+- Tabs
+- Dropdowns
+- Form inputs
+
+are usually local concerns.
+
+This kind of state is short-lived, contextual, and tightly coupled to a specific part of the UI. Making it global rarely improves reuse, but it almost always increases complexity.
+
+Keeping UI state close to where it's used makes behavior easier to follow and refactoring safer.
+
+## When Global State Actually Makes Sense
+
+Global state starts to make sense when many distant parts of the app depend on the same information.
+
+Common examples are:
+
+- Authentication and user session
+- Feature flags
+- Global configuration
+- Cached server data shared across routes
+
+In these cases, duplication is more expensive than coupling. The state represents application-wide concepts, not local UI behavior.
+
+## Conclusion
+
+I don't avoid global state entirely — I avoid it by default.
+
+I start local, lift state when coordination is required, and introduce global state when the pain of _not_ having it becomes clear.
+
+Used deliberately, global state stays small and stable. Used early, it tends to spread everywhere.

@@ -1,0 +1,46 @@
+---
+title: React Performance: The Things That Actually Matter
+date: 2026-01-12
+summary: Most React performance problems aren't caused by slow code, but by optimizing the wrong things.
+tags: [react, performance, architecture]
+---
+
+Performance discussions in React often start with memoization.
+
+`useMemo`, `useCallback`, `React.memo`.
+
+These tools are useful — but they're rarely where the biggest wins come from.
+
+## Re-Renders Are Not the Enemy
+
+A component re-rendering doesn't mean the DOM is updating.
+
+React's reconciliation process is efficient, and most re-renders are cheap. Preventing them by default often adds complexity without delivering measurable improvements.
+
+Premature memoization increases cognitive overhead, makes code harder to read, and often hides the real problem instead of fixing it.
+
+## Most Performance Problems Are Structural
+
+In my experience, slow UIs usually come from components doing too much work.
+
+Large components, deeply nested trees, expensive calculations during render, or rendering huge lists without virtualization are much more common causes of performance issues than "too many renders."
+
+Fixing these problems usually means changing structure, not adding memoization.
+
+## Optimize Work, Not Renders
+
+I tend to think about performance in terms of **work done per interaction**.
+
+How much code runs?  
+How much data is processed?  
+How much UI actually needs to update?
+
+Splitting responsibilities, reducing unnecessary work, and deferring expensive operations almost always produce clearer and more reliable gains than micro-optimizations.
+
+## Conclusion
+
+Before reaching for performance hooks, I look at component boundaries, responsibilities, and data flow.
+
+Clean structure usually solves performance issues more effectively than defensive memoization.
+
+When performance work is guided by measurement instead of fear, React is often fast enough by default.
