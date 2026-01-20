@@ -1,0 +1,42 @@
+---
+title: The Hidden Cost of Overusing `useEffect`
+date: 2026-01-20
+summary: useEffect is a powerful tool, but using it everywhere often hides architectural problems.
+tags: [react, architecture, clean code]
+---
+
+Beginners often reach for `useEffect` as a way to "react" to everything: data fetching, syncing state, side effects, even derived values.
+
+It works — but over time, `useEffect` can make components harder to read, harder to debug, and harder to refactor.
+
+## Effects Should Solve a Real Problem
+
+Not everything that changes in your component needs an effect.
+
+If state can be derived from props or other state, don't sync it manually.  
+If a value can be calculated during render, don't store it and update it with an effect.
+
+Using effects unnecessarily creates **hidden dependencies** and cognitive overhead. The more effects a component has, the more places you need to check when something breaks.
+
+## Effects Often Signal Missing Boundaries
+
+Many effects exist because logic is in the wrong place.
+
+- Data fetching inside a deeply nested component? Maybe it belongs in a feature-level hook.
+- Coordinating state between siblings via effects? Maybe the state should be lifted.
+- Recalculating derived values in effects? Maybe they don't need to be state at all.
+
+If you're sprinkling effects everywhere, it's usually a sign that the component boundaries or state ownership aren't clear.
+
+## Conclusion
+
+`useEffect` is essential, but it shouldn't be a catch-all tool.
+
+I try to:
+
+- Keep effects minimal
+- Derive state when possible
+- Lift state only when coordination requires it
+- Encapsulate logic in hooks or feature modules
+
+Components should read clearly, not require tracing a chain of effects to understand behavior. Overusing `useEffect` solves problems at first, but it often creates bigger ones down the line.
