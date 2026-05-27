@@ -55,7 +55,7 @@ const projectCards: ProjectCard[] = [
       "My old portfolio reimagined with retro aesthetics, built using pure HTML, CSS, BEM, and JavaScript. Showcases past projects.",
     image: { src: "/projects/retro-portfolio.png", alt: "Screenshot of Retro Portfolio website" },
     tags: ["HTML", "CSS", "JavaScript", "BEM"],
-    liveUrl: "https://sergimarquez.dev",
+    liveUrl: "https://sergimarquez.vercel.app/",
     repoUrl: "https://github.com/sergimarquez/retro-portfolio",
   },
 ];
