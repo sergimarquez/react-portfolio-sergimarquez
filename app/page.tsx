@@ -36,7 +36,7 @@ const projectCards: ProjectCard[] = [
       "A privacy-first app for daily gratitude. Record three things you’re grateful for, track your streaks, and reflect on your progress with a simple, distraction-free interface.",
     image: { src: "/projects/3good.png", alt: "Screenshot of 3Good app" },
     tags: ["React", "TypeScript", "Vite", "Privacy"],
-    liveUrl: "https://3good.app/",
+    liveUrl: "https://threegood.netlify.app/",
     repoUrl: "https://github.com/sergimarquez/three-things",
   },
   {
